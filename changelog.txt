@@ -1,0 +1,45 @@
+V3.0.2
+
+- fixed incorrect position on Firefox (HOOK_TOP)
+- fixed incorrect displaying in center column (HOOK_HOME)
+
+V3.0.0
+
+- PS 1.5.x compatible
+- added Home only option
+- new .tpl structure
+- added newsletter subscription
+
+V2.4.3
+
+- added HOOK_TOP
+- now HTML allowed as caption
+- removed custom browse button
+
+V2.4.0
+
+- added new navigation and system messages
+- added bug report and feedback
+- added latest Nivo Slider (now its responsive)
+
+V2.3.4
+
+- fixed chmod problem
+- fixed Browse button in old IE
+- removed language code from image names
+- added Sort Feedback
+- added custom image name option
+
+v2.1.0
+
+- now is sortable via drag & drop
+- added blank link option to links
+- fixed hook backOfficeHeader to link files only if needed
+
+V2.0.0
+
+- totally rewritten
+- added multilanguage
+- updated to latest Nivo slider
+- added more hook positions
+- improoved CSS & jQuery
