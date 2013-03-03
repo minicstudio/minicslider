@@ -36,3 +36,6 @@ If you want to use in the TOP POSITION than the module has to be the last in tha
 </ul>
 <h5>Demo</h5>
 For now I can provide frontend demo only on the <a href="http://dev7studios.com/nivo-slider/" target="_blank">Nivo slider</a> home page or <a  href="http://module.minic.ro" target="_blank">here</a>.
+
+<h5>Installation</h5>
+Upload/move the minicslider directory into your modules folder and install the module from the back office as usual.
