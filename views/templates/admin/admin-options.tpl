@@ -166,7 +166,7 @@
                 </div>   
             </div>
             <div class="button_cont">
-				<input type="submit" name="submitOptions" value="{l s='Update'}" id="submitOptions" class="green large" />
+				<input type="submit" name="submitMinicOptions" value="{l s='Update'}" id="submitOptions" class="green large" />
 			</div>
 		</div>
 	</form>
