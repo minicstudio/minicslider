@@ -1,3 +1,10 @@
+V3.1.0
+- changed the uplaod process
+- changed the submitOption to avoid conflict with Prestashop
+- fixed undefined error/confirmation bug
+- fixed defLangIso
+- fixed PostAction typo
+
 V3.0.2
 
 - fixed incorrect position on Firefox (HOOK_TOP)
