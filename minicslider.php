@@ -374,52 +374,65 @@ class MinicSlider extends Module
 		{
 			$path = $_SERVER['DOCUMENT_ROOT'].$this->_path.'/uploads/';
 			$pathThumb = $_SERVER['DOCUMENT_ROOT'].$this->_path.'/uploads/thumbs/';
+
+			// Check if thumb dir is exists and create if not
+			if(!file_exists($pathThumb) && !is_dir($pathThumb))
+				mkdir($pathThumb);
+			
+			// Replace whitesapce
 			$imageName = explode('.', str_replace(' ', '_', $image['name']));
 			$name = $imageName[0].'.'.$imageName[1];
-			if($newName)
-				$name = str_replace(' ', '_', $newName).'.'.$imageName[1];
-			
-			Configuration::set('PS_IMAGE_GENERATION_METHOD', 1);
-		
+			// Replace unwanted chars
+			if($newName){
+				$unwanted_chars = array(
+					'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
+                    'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
+                    'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
+                    'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
+                    'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y', 'Ğ'=>'G', 'İ'=>'I', 'Ş'=>'S', 'ğ'=>'g', 'ı'=>'i', 
+                    'ş'=>'s', 'ü'=>'u',
+                );
+				$nameB = strtr( $newName, $unwanted_chars );
+				$name = str_replace(' ', '_', $nameB).'.'.$imageName[1];
+			}
+
+			// if new name is empty and picture is exists create a new name
 			if(file_exists($path.$name) && $newName == NULL){
 				$name = $imageName[0].date('-i-s').'.'.$imageName[1];
 			}
-			if (!isPicture($image)) {
-				$this->context->smarty->assign('error', $this->l('Image format not recognized, allowed formats are: .gif, .jpg, .png'));
-				return false;
-			}else{
-				if (checkImage($image, $this->maxImageSize)){
-					$this->context->smarty->assign('error', $this->l('Image is to large: ').$image['size'].' kb '.$this->l('Maximum allowed: ').$this->maxImageSize.' kb');
-					return false;
-				}else{
-					if (!$tmpName = tempnam(_PS_TMP_IMG_DIR_, 'PS') OR !move_uploaded_file($image['tmp_name'], $tmpName)){
-						$this->context->smarty->assign('error', $this->l('An error occurred while moving files. Please check permissions.'));
-						return false;
-						unlink($tmpName);
-					}else{
-						if (!imageResize($tmpName, $pathThumb.'admin_'.$name,250)){
-							$this->context->smarty->assign('error', $this->l('An error occurred while creating thumbnails.'));
-							return false;
-							unlink($tmpName);
-						}else{
-							if (!imageResize($tmpName, $pathThumb.'front_'.$name,50)){
-								$this->context->smarty->assign('error', $this->l('An error occurred while creating thumbnails.'));
-								return false;
-								unlink($tmpName);
-							}else{
-								if (!rename($tmpName, $path.$name)){
-									$this->context->smarty->assign('error', $this->l('An error occurred while renaming files.'));
-									unlink($tmpName);
-								}else{
-									$image = $name;
-									chmod($path.$name, 0644);
-									return $image;
-								}
-							}
-						}
-					}
-				}
+
+			// Check image size and format
+			if($error = ImageManager::validateUpload($image, $this->maxImageSize)){
+				$this->context->smarty->assign('error', $error);
+				return;
 			}
+
+			// Move image
+			if(!ImageManager::resize($image['tmp_name'], dirname(__FILE__).'/uploads/'.$name)){
+				$this->context->smarty->assign('error', $this->l('An error occured during the upload, please check the permissions.'));
+				unlink($tmpName);
+				return;
+			}			
+
+			// Create thumbnail for slider
+			$imgSize = getimagesize($path.$name);
+			if($imgSize[0] >= $imgSize[1]){
+				// Resize based on width
+				$imgWidth = 50;
+				$imgHeight = ($imgSize[1]/100)*(5000/$imgSize[0]);
+			}else{
+				// Resize based on height
+				$imgHeight = 50;
+				$imgWidth = ($imgSize[0]/100)*(5000/$imgSize[1]);
+			}
+
+			// Actual resize
+			if(!ImageManager::resize($path.$name, $pathThumb.$name, (int)$imgWidth, (int)$imgHeight)){
+				$this->context->smarty->assign('error', $this->l('An error occurred during the image upload. Please check the upload directory permission in the module folder.'));
+				return;
+			}
+
+			return $name;
 		}	
 	
 	private function _deleteImages($image)

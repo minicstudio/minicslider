@@ -62,7 +62,7 @@
                         <div class="slide_body">
                               <form id="{$iso}_{$slide.id_order}" method="post" action="{$slider.postAction}" enctype="multipart/form-data">
                                   <div class="image_holder">
-                                      <img src="{$module_dir}uploads/thumbs/admin_{$slide.image}" />
+                                      <img src="{$module_dir}uploads/thumbs/{$slide.image}" />
                                       <div class="file_input">
                                           <input type="file" name="newImage" class="file"/>
                                           <div>
