@@ -137,7 +137,10 @@ class MinicSlider extends Module
 	
 	public function getContent()
 		{
-			if (Tools::isSubmit('submitOptions')){
+			$this->context->smarty->assign('error', 0);
+			$this->context->smarty->assign('confirmation', 0);
+
+			if (Tools::isSubmit('submitMinicOptions')){
 				$this->_handleOptions();
 			} elseif (Tools::isSubmit('submitNewSlide')){
 				$this->_handleNewSlide();
@@ -211,7 +214,7 @@ class MinicSlider extends Module
             		'theme' => _THEME_NAME_,
             		'userInfo' => $_SERVER['HTTP_USER_AGENT']
         		),
-				'postAction' => 'index.php?tab=AdminModules&configure='.$this->name.'&token='.Tools::getAdminTokenLite('AdminModules').'&tab_module=advertising_marketing='.$this->name.'',
+				'postAction' => 'index.php?tab=AdminModules&configure='.$this->name.'&token='.Tools::getAdminTokenLite('AdminModules').'&tab_module=advertising_marketing&module_name='.$this->name.'',
 				'sortUrl' => _PS_BASE_URL_.__PS_BASE_URI__.'modules/'.$this->name.'/ajax_'.$this->name.'.php?action=updateOrder&secure_key='.$this->secure_key,
 				'firstStart' => Configuration::get('PS_MINIC_SLIDER_FIRST'),
 				'id_shop' => (int)$this->context->shop->id
@@ -378,7 +381,7 @@ class MinicSlider extends Module
 			// Check if thumb dir is exists and create if not
 			if(!file_exists($pathThumb) && !is_dir($pathThumb))
 				mkdir($pathThumb);
-			
+
 			// Replace whitesapce
 			$imageName = explode('.', str_replace(' ', '_', $image['name']));
 			$name = $imageName[0].'.'.$imageName[1];
@@ -458,15 +461,14 @@ class MinicSlider extends Module
 	 	{
 			$defLanguages = (int)Configuration::get('PS_LANG_DEFAULT');
 			$activeLanguages = Language::getLanguages(true);
-			$allLanguages = Language::getLanguages(false);
-			$defLangIso = $allLanguages[$defLanguages-1]['iso_code'];
-			$id_shop = (int)$this->context->shop->id;
-			// $this->context->smarty->assign('defaultLangIso', $defLangIso);
+			$allLanguages = Language::getLanguages(false);			
+			$defLangIso = $this->context->language->iso_code;
+			$id_shop = $this->context->shop->id;
+
 			$options = Db::getInstance()->getRow('SELECT * FROM `'._DB_PREFIX_.'minic_options`');
 			$tpl = 'single.tpl';
 			if($options['front'] == 1)
 				$tpl = 'multiple.tpl';
-			$width = array();
 			$slides = array();
 	
 			if($options['single'] == 0){
@@ -500,7 +502,7 @@ class MinicSlider extends Module
 				),
 				'path' => array(
 					'images' => $this->_path.'uploads/',
-					'thumbs' => $this->_path.'uploads/thumbs/front_'
+					'thumbs' => $this->_path.'uploads/thumbs/'
 				),
 				'tpl' => _PS_MODULE_DIR_.'minicslider/views/templates/front/'.$tpl,
 				'position' => $position
