@@ -43,6 +43,12 @@ class MinicSlider extends Module
 	
 		    $this->displayName = $this->l('minic slider');
 		    $this->description = $this->l('Powerfull image slider for advertising.');
+
+		    // Paths
+			$this->module_path 		= _PS_MODULE_DIR_.$this->name.'/';
+			$this->admin_tpl_path 	= _PS_MODULE_DIR_.$this->name.'/views/templates/admin/';
+			$this->front_tpl_path	= _PS_MODULE_DIR_.$this->name.'/views/templates/front/';
+			$this->hooks_tpl_path	= _PS_MODULE_DIR_.$this->name.'/views/templates/hooks/';
 	    }
 	
 	private function installDB()
@@ -111,7 +117,13 @@ class MinicSlider extends Module
 	
 	public function install()
 	    {
-			if (parent::install() && $this->installDB() && $this->insertOptions() && $this->registerHook('displayTop') && $this->registerHook('displayHeader') && $this->registerHook('displayBackOfficeHeader') && Configuration::updateValue('PS_MINIC_SLIDER_FIRST', '1')){
+			if (parent::install() && 
+				$this->installDB() && 
+				$this->insertOptions() && 
+				$this->registerHook('displayTop') && 
+				$this->registerHook('displayHeader') && 
+				$this->registerHook('displayBackOfficeHeader') && 
+				Configuration::updateValue('PS_MINIC_SLIDER_FIRST', '1')){
 				return true;
 			}else{
 				$this->uninstall();
@@ -202,31 +214,47 @@ class MinicSlider extends Module
                 	'feedback' => _PS_MODULE_DIR_.'minicslider/views/templates/admin/admin-feedback.tpl',
                 	'bug' => _PS_MODULE_DIR_.'minicslider/views/templates/admin/admin-bug.tpl'
             	),
-            	'info' => array(
-            		'name' => Configuration::get('PS_SHOP_NAME'),
-            		'domain' => Configuration::get('PS_SHOP_DOMAIN'),
-            		'email' => Configuration::get('PS_SHOP_EMAIL'),
-            		'version' => $this->version,
-                	'psVersion' => _PS_VERSION_,
-            		'server' => $_SERVER['SERVER_SOFTWARE'],
-            		'php' =>phpversion(),
-            		'mysql' => Db::getInstance()->getVersion(),
-            		'theme' => _THEME_NAME_,
-            		'userInfo' => $_SERVER['HTTP_USER_AGENT']
-        		),
+          //   	'info' => array(
+          //   		'name' => Configuration::get('PS_SHOP_NAME'),
+          //   		'domain' => Configuration::get('PS_SHOP_DOMAIN'),
+          //   		'email' => Configuration::get('PS_SHOP_EMAIL'),
+          //   		'version' => $this->version,
+          //       	'psVersion' => _PS_VERSION_,
+          //   		'server' => $_SERVER['SERVER_SOFTWARE'],
+          //   		'php' =>phpversion(),
+          //   		'mysql' => Db::getInstance()->getVersion(),
+          //   		'theme' => _THEME_NAME_,
+          //   		'userInfo' => $_SERVER['HTTP_USER_AGENT']
+        		// ),
 				'postAction' => 'index.php?tab=AdminModules&configure='.$this->name.'&token='.Tools::getAdminTokenLite('AdminModules').'&tab_module=advertising_marketing&module_name='.$this->name.'',
 				'sortUrl' => _PS_BASE_URL_.__PS_BASE_URI__.'modules/'.$this->name.'/ajax_'.$this->name.'.php?action=updateOrder&secure_key='.$this->secure_key,
 				'firstStart' => Configuration::get('PS_MINIC_SLIDER_FIRST'),
 				'id_shop' => (int)$this->context->shop->id
 			));	
-			
-			$this->context->controller->addCSS($this->_path . 'views/css/tipsy.css');
-			$this->context->controller->addCSS($this->_path . 'views/css/style.css');
-			$this->context->controller->addJS($this->_path . 'views/js/fn.ghostText.min.js');
-			$this->context->controller->addJS($this->_path . 'views/js/jquery.tipsy.js');
-			$this->context->controller->addJS($this->_path . 'views/js/minicFeedback.js');
-			$this->context->controller->addJS($this->_path . 'views/js/minicSlider.js');
-			$this->context->controller->addJS($this->_path . 'views/js/jquery-ui-1.9.0.custom.min.js');
+
+			$this->smarty->assign('minic', array(
+				'first_start' 	 => Configuration::get('PS_MINIC_SLIDER_FIRST'),//Configuration::get(strtoupper($this->name).'_START'),
+
+				'admin_tpl_path' => $this->admin_tpl_path,
+				'front_tpl_path' => $this->front_tpl_path,
+				'hooks_tpl_path' => $this->hooks_tpl_path,
+
+				'info' => array(
+	            	'name'      => Configuration::get('PS_SHOP_NAME'),
+	        		'domain'    => Configuration::get('PS_SHOP_DOMAIN'),
+	        		'email'     => Configuration::get('PS_SHOP_EMAIL'),
+	        		'version'   => $this->version,
+	            	'psVersion' => _PS_VERSION_,
+	        		'server'    => $_SERVER['SERVER_SOFTWARE'],
+	        		'php'       => phpversion(),
+	        		'mysql' 	=> Db::getInstance()->getVersion(),
+	        		'theme' 	=> _THEME_NAME_,
+	        		'userInfo'  => $_SERVER['HTTP_USER_AGENT'],
+	        		'today' 	=> date('Y-m-d'),
+	        		'module'	=> $this->name,
+	        		'context'	=> (Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 0) ? 1 : ($this->context->shop->getTotalShops() != 1) ? $this->context->shop->getContext() : 1,
+				)
+			));
 
 			if(Configuration::get('PS_MINIC_SLIDER_FIRST') == 1)
 				Configuration::updateValue('PS_MINIC_SLIDER_FIRST', '0');
@@ -451,10 +479,32 @@ class MinicSlider extends Module
 			}
 		}
 	
+	public function hookDisplayBackOfficeHeader()
+	{
+		// Check if module is loaded
+		// if (Tools::getValue('tab') != 'AdminModules' || Tools::getValue('configure') != $this->name)
+		// 	return false;
+
+		// CSS
+		$this->context->controller->addCSS($this->_path.'views/css/elusive-icons/elusive-webfont.css');
+		$this->context->controller->addCSS($this->_path.'views/js/plugins/tipsy/tipsy.css');
+		$this->context->controller->addCSS($this->_path.'views/css/style.css');
+		$this->context->controller->addCSS($this->_path.'views/css/admin.css');
+		// JS
+		$this->context->controller->addJquery();
+		$this->context->controller->addJS($this->_path.'views/js/plugins/ghost-text/fn.ghostText.min.js');
+		$this->context->controller->addJS($this->_path.'views/js/plugins/tipsy/jquery.tipsy.js');
+		// $this->context->controller->addJS($this->_path . 'views/js/minicFeedback.js');
+		// $this->context->controller->addJS($this->_path . 'views/js/minicSlider.js');
+		$this->context->controller->addJS($this->_path.'views/js/jquery-ui-1.9.0.custom.min.js');
+		$this->context->controller->addJS($this->_path.'views/js/admin.js');
+
+	}
+
 	public function hookDisplayHeader()
 		{
-			$this->context->controller->addCSS($this->_path.'views/css/nivo-slider.css');
-			$this->context->controller->addJS($this->_path.'views/js/jquery.nivo.slider.pack.js');
+			$this->context->controller->addCSS($this->_path.'views/js/plugins/nivo-slider/nivo-slider.css');
+			$this->context->controller->addJS($this->_path.'views/js/plugins/nivo-slider/jquery.nivo.slider.pack.js');
 		}
  	
  	public function hookHome($position = '')
