@@ -1,25 +1,22 @@
-{*
-* Copyright (C) 2012  S.C Minic Studio S.R.L.
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public License
-* as published by the Free Software Foundation; either version 2
-* of the License, or (at your option) any later version.
-* 
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-* 
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*
-* @author     S.C Minic Studio S.R.L.
-* @copyright  Copyright S.C Minic Studio S.R.L. 2012. All rights reserved.
-* @license    GPLv2 License http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
-* @version    v3.0.0
-*}
+<div id="option" class="minic-container">
+    <form id="form-option" class="" method="post">
+        <div class="minic-top">
+            <h3>{l s='Options' mod='minicslider'}
+                <a href="http://module.minic.ro/minic-slider-news/using-the-feedback-and-bug-report/" target="_blank" class="help">{l s='help & tips' mod='minicslider'}</a>
+            </h3>
+            <a href="#option" class="minic-close">x</a>
+        </div>
+        <div class="minic-content">
+
+		</div>
+        <div class="minic-bottom">
+            <a href="#bug" id="send-bug" class="button-large green">{l s='Send' mod='minicslider'}</a>
+            <a href="#option" class="minic-close button-large lgrey">{l s='Close' mod='minicslider'}</a>
+            <input id="info-module" type="hidden" name="module" value="{$minic.info.module}" />
+            <input id="info-context" type="hidden" value="{$minic.info.context}" name="context" />
+        </div>
+    </form>
+</div>
 
 <fieldset id="option" class="hidden-div">
 	<legend>{l s='Options'}</legend>

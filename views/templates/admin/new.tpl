@@ -1,5 +1,5 @@
 <div id="new" class="minic-container">
-    <form method="post" action="{$slider.postAction}" enctype="multipart/form-data">
+    <form id="form-new" class="" method="post" action="{$slider.postAction}" enctype="multipart/form-data">
         <div class="minic-top">
             <h3>{l s='New slide' mod='minicslider'}
                 <a href="http://module.minic.ro/minic-slider-news/using-the-feedback-and-bug-report/" target="_blank" class="help">{l s='help & tips' mod='minicslider'}</a>
