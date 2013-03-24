@@ -33,6 +33,7 @@
 		cursor: pointer;
 	}
 	#minic input[type="text"],
+	#minic input[type="file"],
 	#minic textarea{
 		padding: 5px;
 		outline: none !important;
@@ -201,6 +202,7 @@
 				display: block;
 			}
 			.minic-content > div.input-holder input[type="text"],
+			.minic-content > div.input-holder input[type="file"],
 			.minic-content > div.input-holder textarea{
 				clear: both;
 				width: 94%;

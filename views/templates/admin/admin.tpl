@@ -99,8 +99,8 @@
         </div>
         <div id="banner"></div>
         <div id="navigation">
-            <a href="#newSlide" id="addNew-button" class="menu">{l s='Add New'}</a>
-            <a href="#option" id="options-button" class="menu">{l s='Options'}</a>
+            <a href="#new" id="addNew-button" class="minic-open">{l s='Add New'}</a>
+            <a href="#option" id="options-button" class="minic-open">{l s='Options'}</a>
         </div>
     </div>
     <!-- feedback -->

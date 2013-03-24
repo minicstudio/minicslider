@@ -85,7 +85,7 @@ legend:hover,
     float:left;
 }
 /* Buttons */
-.button_cont{
+/*.button_cont{
     clear:both;
     width:100%;
 }
@@ -120,7 +120,7 @@ input.red{
 input.red:hover{
     cursor: pointer;
     background:url(../../img/bt-red-hover.png) center repeat-x;
-}
+}*/
 /* Info Icon */
 .info_ico{
     background:url(../../img/info.png) no-repeat;
@@ -230,7 +230,7 @@ input.red:hover{
     height:24px;
     color:rgba(0,0,0,.6);
 }
-#new textarea{
+/*#new textarea{
     width:240px;
     margin-bottom:10px;
     border:1px solid #dfd5c3;
@@ -238,34 +238,34 @@ input.red:hover{
     -moz-border-radius:2px;
     border-radius:2px;
     color:rgba(0,0,0,.6);
-}
-#new > div{
+}*/
+/*#new > div{
     display: block;
     margin-bottom:10px;
     float: left;
-}
-#new{
+}*/
+/*#new{
     float: left;
     min-width: 550px;
     width: 60%;    
-}
+}*/
 #newSlide .comments{
     float: left;
     min-width: 360px;
     width: 40%;
 }
-#new div.target input{
+/*#new div.target input{
     width:auto;
     height:auto;
     margin-top:7px;
     margin-left:10px;
     padding:0;
-}
-#new div.image input{
+}*/
+/*#new div.image input{
     height:28px;
     width:250px;
     padding-right:4px;
-}
+}*/
 #new div.language select{
     height:30px;
     margin-bottom:10px;
