@@ -122,6 +122,7 @@ class MinicSlider extends Module
 				$this->insertOptions() && 
 				$this->registerHook('displayTop') && 
 				$this->registerHook('displayHeader') && 
+				$this->registerHook('displayAdminHomeQuickLinks') &&
 				$this->registerHook('displayBackOfficeHeader') && 
 				Configuration::updateValue('PS_MINIC_SLIDER_FIRST', '1')){
 				return true;
@@ -478,6 +479,15 @@ class MinicSlider extends Module
 				$this->context->smarty->assign('error', $this->l('Image doesn`t exists!'));
 			}
 		}
+
+	/**
+	 * Hook for back office dashboard
+	 */
+	public function hookDisplayAdminHomeQuickLinks()
+	{	
+		$this->context->smarty->assign('minicslider', $this->name);
+	    return $this->display(__FILE__, 'views/templates/hooks/quick_links.tpl');    
+	}
 	
 	public function hookDisplayBackOfficeHeader()
 	{
