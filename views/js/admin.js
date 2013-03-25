@@ -10,6 +10,19 @@ jQuery(document).ready(function() {
 		}
 	});
 
+/* Tooltip */
+	$('.input-holder .tooltip').tipsy({
+		fade: true,
+		gravity: $.fn.tipsy.autoNS,
+		offset: 10,
+		trigger: 'focus'
+	});
+	$('label .tooltip').tipsy({
+		fade : true,
+		gravity : $.fn.tipsy.autoNS,
+		offset : 10,
+	});
+
 // Popup functions
 	// Open
 	$('.open-popup').click(function(e){
