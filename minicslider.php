@@ -296,7 +296,8 @@ class MinicSlider extends Module
 				$this->context->smarty->assign('error', $this->l('An error occurred while saving data. I`m sure this is a DataBase error.'));
 				return false;
 			}
-		
+
+			$this->context->smarty->assign('confirmation', $this->l('Saved successfull.'));		
 			return true;
 		}
 	
@@ -498,7 +499,7 @@ class MinicSlider extends Module
 		// CSS
 		$this->context->controller->addCSS($this->_path.'views/css/elusive-icons/elusive-webfont.css');
 		$this->context->controller->addCSS($this->_path.'views/js/plugins/tipsy/tipsy.css');
-		$this->context->controller->addCSS($this->_path.'views/css/style.css');
+		// $this->context->controller->addCSS($this->_path.'views/css/style.css');
 		$this->context->controller->addCSS($this->_path.'views/css/admin.css');
 		// JS
 		$this->context->controller->addJquery();
