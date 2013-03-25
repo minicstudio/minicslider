@@ -2,7 +2,7 @@
 	<form id="form-feed" class="" method="post">
         <div class="minic-top">
             <h3>{l s='Feedback' mod='minicskeletonpro'}
-                <a href="http://module.minic.ro/minic-slider-news/using-the-feedback-and-bug-report/" target="_blank" class="help">{l s='help & tips' mod='minicskeletonpro'}</a>
+                <a href="http://module.minic.ro/how-to-use-feedback-and-bug-report-in-our-modules/" target="_blank" class="help">{l s='help & tips' mod='minicskeletonpro'}</a>
             </h3>
             <a href="#feedback" class="minic-close">x</a>
         </div>
