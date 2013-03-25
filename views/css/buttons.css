@@ -99,4 +99,42 @@
 		background: url(../img/buttons/buttons.png) repeat-x;
 		background-position: 0 -100px;
 	}
-	
+/* ON/OFF switch */
+.switch{
+	-webkit-transition: all 0.4s ease-in-out;
+	-moz-transition: all 0.4s ease-in-out;
+	-o-transition: all 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out;
+
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+.switch input{
+	position: absolute;
+	left: -99999px;
+}
+	/* Large switch */
+	.switch.large{
+		width: 67px;
+		height: 40px;
+		background: url(../img/buttons/switch-large.png) no-repeat;
+	}
+	/* Small switch */
+	.switch.small{
+		float: left;
+		width: 67px;
+		height: 26px;
+		background: url(../img/buttons/switch-small.png) no-repeat;
+	}
+	/* Hover */
+	.switch:hover{
+		cursor: pointer;
+	}
+	/* Active */
+	.switch.active{
+		background-position: 0 0; 
+	}
+	/* Inactive */
+	.switch.inactive{
+		background-position: 100% 0;
+	}

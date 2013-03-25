@@ -1,4 +1,15 @@
 jQuery(document).ready(function() {
+/* ON/OFF Switch */
+	$('.switch').click(function(){
+		if($(this).hasClass('active')){
+			$(this).removeClass('active').addClass('inactive');
+			$(this).children('input').val(0);
+		}else{
+			$(this).removeClass('inactive').addClass('active');
+			$(this).children('input').val(1);
+		}
+	});
+
 // Popup functions
 	// Open
 	$('.open-popup').click(function(e){
