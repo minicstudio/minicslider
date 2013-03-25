@@ -28,7 +28,7 @@
             {if $slider.options.single == 1}
             <div class="input-holder language">
                 <label>{l s='Language'}</label>
-                <select name="language" class="tooltip" title="{l s='The language of the slide.'}">
+                <select name="language" class="" title="{l s='The language of the slide.'}">
                     {foreach from=$slider.lang.all item=lang}
                         <option value="{$lang.id_lang}" {if $lang.id_lang == $slider.lang.default.id_lang}selected="selected"{/if}>{$lang.name}</option>
                     {/foreach}
