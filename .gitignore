@@ -1,9 +1,9 @@
 #################
 ## Prestashop & Self
 #################
+config.xml
 uploads/
 translations/
-config.xml
 
 #################
 ## Eclipse
