@@ -493,8 +493,8 @@ class MinicSlider extends Module
 	public function hookDisplayBackOfficeHeader()
 	{
 		// Check if module is loaded
-		// if (Tools::getValue('tab') != 'AdminModules' || Tools::getValue('configure') != $this->name)
-		// 	return false;
+		if (Tools::getValue('tab') != 'AdminModules' || Tools::getValue('configure') != $this->name)
+			return false;
 
 		// CSS
 		$this->context->controller->addCSS($this->_path.'views/css/elusive-icons/elusive-webfont.css');
