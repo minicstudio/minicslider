@@ -1,4 +1,19 @@
 jQuery(document).ready(function() {
+/* Animation Options */
+	$('#add').click(function() {
+		return !$('#select1 option:selected').remove().appendTo('#select2');
+	});
+
+	$('#remove').click(function() {
+		return !$('#select2 option:selected').remove().appendTo('#select1');
+	});
+	
+	$('#submitOptions').click(function() {
+		$('#options .select').find('option').each(function() {
+			$(this).attr("selected", "selected");
+		});	
+	});
+
 /* ON/OFF Switch */
 	$('.switch').click(function(){
 		if($(this).hasClass('active')){

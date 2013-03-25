@@ -39,8 +39,10 @@
 		cursor: pointer;
 	}
 	#minic input[type="text"],
+	#minic select,
 	#minic input[type="file"],
 	#minic textarea{
+		margin: 0;
 		padding: 5px;
 		outline: none !important;
 		border: 1px solid #c7c7c7;
@@ -48,10 +50,14 @@
 		border-radius: 3px;
 	}
 	#minic input[type="text"]:hover,
+	#minic select:hover,
+	#minic input[type="file"]:hover,
 	#minic textarea:hover{
 		border: 1px solid #a8a8a8;
 	}
 	#minic input:focus,
+	#minic select:focus,
+	/*#minic input[type="file"]:focus*/
 	#minic textarea:focus{
 		-webkit-box-shadow:  0px 0px 5px 1px rgba(0, 0, 0, 0.22);
 	    box-shadow:  0px 0px 5px 1px rgba(0, 0, 0, 0.22);
