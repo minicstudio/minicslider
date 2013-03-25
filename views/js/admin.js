@@ -1,4 +1,28 @@
 jQuery(document).ready(function() {
+/* Slides Navigation */  
+	$('#slides-navigation a').click(function(event){
+		event.preventDefault();
+		$('#slides-navigation').find('.active').removeClass('active');
+		$(this).addClass('active');
+		$('.slides-holder').transition({x : -$(this).index()*50+'%'}, 500, 'snap');
+	});
+
+/* Slider List open/close */
+	$('.slide-header').click(function() {
+		var slide_holder = $(this).parent('.slide');
+		$(this).slideUp();
+		slide_holder.toggleClass('active').children('.slide-body').slideToggle();
+		// $.scrollTo('#order_1h1', 500, {offset: {top: -50}});
+	});
+
+	$('.slide-body .minic-close').click(function(event){
+		event.preventDefault();
+		var listElem = $(this).closest('.slide');
+		listElem.removeClass('active');
+		listElem.children('.slide-header').slideDown();
+		listElem.children('.slide-body').slideToggle();
+	});
+
 /* Animation Options */
 	$('#add').click(function() {
 		return !$('#select1 option:selected').remove().appendTo('#select2');

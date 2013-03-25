@@ -15,6 +15,8 @@
 		-moz-transition: all 0.3s ease-in-out;
 		-o-transition: all 0.3s ease-in-out;
 		transition: all 0.3s ease-in-out;
+
+		-webkit-backface-visibility: hidden;
 	}
 	/* Labels */
 	#minic label{
@@ -314,4 +316,88 @@
 		min-width: 30%;
 		line-height: 26px;
 		margin-right: 10px;
+	}
+/* Slides List */
+#slides-navigation{
+	margin-bottom: 20px;
+	border-bottom: 1px solid #ccc;
+}
+#slides-navigation a{
+	display: inline-block;
+	padding: 5px 10px;
+	border-bottom: 1px solid transparent;
+}
+#slides-navigation a.active{
+	font-weight: bold;
+	border-bottom: 1px solid #ccc;
+}
+#slides-list{
+	overflow-x: hidden;
+	margin-top: 50px;
+}
+#slides-list .slides-holder{
+	position: relative;
+	-webkit-backface-visibility: hidden;
+}
+#slides-list .slides-holder ul{
+	float: left;
+}
+	#slides-list .slide{
+		-webkit-transition: .5s all;
+		-moz-transition: .5s all;
+		-o-transition: .5s all;
+		-ms-transition: .5s all;
+		transition: .5s all;
+		margin-bottom: 2px;
+	}
+	#slides-list .slide.active{
+		margin-top: 34px;
+	}
+	/* Slide header */
+	#slides-list .slide-header{		
+		padding: 5px;
+		border: 1px solid #c5c8d1;
+		background: #f0efea;
+		font-size: 18px;
+	}
+	#slides-list .slide-header:hover{
+		cursor: pointer;
+	}
+		#slides-list .slide-header > *{
+			margin-right: 2%;
+		}
+		#slides-list .slide-header i{
+			margin-right: 5px;
+		}
+		#slides-list .slide-header i:hover{
+			cursor: move;
+		}
+	/* Slide body */
+	#slides-list .slide-body .minic-top{
+		display: inline-block;
+		padding-bottom: 10px;
+	}
+	#slides-list .slide-body .minic-top .input-holder,
+	#slides-list .slide-body .minic-top .switch-holder{
+		float: left;
+		display: inline-block;
+		margin-right: 5%;
+	}
+	#slides-list .slide-body .minic-top .title{
+		width: 30%;
+	}
+	#slides-list .slide-body .minic-top input{
+		height: 30px;
+		width: 100%;
+		color: #696969;
+		font-size: 18px;
+		font-style: italic;
+	}
+	#slides-list .slide-body .minic-top input:focus{
+		font-weight: normal;
+	}
+	#slides-list .slide-body .minic-content .image-holder img{
+		width: 94%;
+		max-width: 412px;
+		margin-bottom: 10px;
 	}

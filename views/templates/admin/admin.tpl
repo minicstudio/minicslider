@@ -51,7 +51,8 @@
         // Sortable
         $("ul.languages").sortable({
             opacity: 0.6,
-            cursor: "move",
+            cursor: 'move',
+            handle: '.orderer',
             update: function(event, ui) {
                 var list = $(this);
                 var number;
@@ -61,7 +62,7 @@
                     {ldelim}slides: $(this).sortable("serialize"){rdelim}, 
                     function(response){
                         if(response.success == "true"){
-                            showResponse($("#fixed_conf"), "{l s='Saved successfull'}");
+                            showResponse($("#sortable"), "{l s='Saved successfull'}", 'conf');
                             var i = 1;
                             list.children("li").each(function(){
                                 number = i;
@@ -72,7 +73,7 @@
                                 i++;
                             });
                         }else{
-                            showResponse($("#fixed_error"), "{l s='Something went wrong, please refresh the page and try again'}"); 
+                            showResponse($("#sortable"), "{l s='Something went wrong, please refresh the page and try again'}", 'error'); 
                         }
                   }
                 );
@@ -80,14 +81,15 @@
         });         
     });
 </script>
-
-{if $error}<div class="error">{$error}</div>{/if}
-{if $confirmation}<div class="conf">{$confirmation}</div>{/if}
-<div id="fixed_conf" class="conf response" style="display:none;"><p></p><span class="close">x</span></div>
-<div id="fixed_error" class="error response" style="display:none;"><p></p><span class="close">x</span></div>
 		
 {include file="{$minic.admin_tpl_path}javascript.tpl"}
 <div id="minic">
+    {if $error}
+        {include file="{$minic.admin_tpl_path}messages.tpl" id="main" text=$error class='error'}
+    {/if}
+    {if $confirmation}
+        {include file="{$minic.admin_tpl_path}messages.tpl" id="main" text=$confirmation class='conf'}
+    {/if}
     <div class="header">
         <div id="menu-top">
             <a href="https://github.com/minicstudio" class="social" title="Minic studio Github page" target="_blank"><i class="icon-github"></i></a>

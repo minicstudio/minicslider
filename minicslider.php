@@ -474,7 +474,7 @@ class MinicSlider extends Module
 			$pathThumb = $_SERVER['DOCUMENT_ROOT'].$this->_path.'/uploads/thumbs/';		
 			
 			if(file_exists($path.$image)){
-				if(!unlink($path.$image) || !unlink($pathThumb.'admin_'.$image) || !unlink($pathThumb.'front_'.$image))
+				if(!unlink($path.$image) || !unlink($pathThumb.$image))
 					$this->context->smarty->assign('error', $this->l('Cant delete images, please check permissions!'));			
 			}else{
 				$this->context->smarty->assign('error', $this->l('Image doesn`t exists!'));
@@ -493,7 +493,7 @@ class MinicSlider extends Module
 	public function hookDisplayBackOfficeHeader()
 	{
 		// Check if module is loaded
-		if (Tools::getValue('tab') != 'AdminModules' || Tools::getValue('configure') != $this->name)
+		if (Tools::getValue('configure') != $this->name)
 			return false;
 
 		// CSS
@@ -503,11 +503,11 @@ class MinicSlider extends Module
 		$this->context->controller->addCSS($this->_path.'views/css/admin.css');
 		// JS
 		$this->context->controller->addJquery();
-		$this->context->controller->addJS($this->_path.'views/js/plugins/ghost-text/fn.ghostText.min.js');
 		$this->context->controller->addJS($this->_path.'views/js/plugins/tipsy/jquery.tipsy.js');
 		// $this->context->controller->addJS($this->_path . 'views/js/minicFeedback.js');
 		// $this->context->controller->addJS($this->_path . 'views/js/minicSlider.js');
 		$this->context->controller->addJS($this->_path.'views/js/jquery-ui-1.9.0.custom.min.js');
+		// $this->context->controller->addJqueryUI('ui.sortable');
 		$this->context->controller->addJS($this->_path.'views/js/admin.js');
 
 	}
