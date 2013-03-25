@@ -37,7 +37,7 @@ slider_admin textarea{
 div.switch > div.switch{
     width: auto !important;
 }
-#new label,
+/*#new label,
 #feedback label,
 #bug label{
     line-height:28px;
@@ -45,7 +45,7 @@ div.switch > div.switch{
     font-size:12px;
     color:#000;
     padding-top:0;
-}
+}*/
 .slider_admin .hidden-div,
 #list_slide .languages.hidden,
 .image_enabled,
@@ -158,7 +158,7 @@ input.red:hover{
     width: 241px;
 }
 /* Options */
-#slider_options{
+/*#slider_options{
     display: block;
 }
 #options{
@@ -218,9 +218,9 @@ input.red:hover{
     width: 100%;
     clear:both;
     margin-bottom:10px;
-}
+}*/
 /* New */
-#new select{
+/*#new select{
     width:250px;
     margin-bottom:10px;
     border:1px solid #dfd5c3;
@@ -229,7 +229,7 @@ input.red:hover{
     border-radius:2px;
     height:24px;
     color:rgba(0,0,0,.6);
-}
+}*/
 /*#new textarea{
     width:240px;
     margin-bottom:10px;
@@ -249,11 +249,11 @@ input.red:hover{
     min-width: 550px;
     width: 60%;    
 }*/
-#newSlide .comments{
+/*#newSlide .comments{
     float: left;
     min-width: 360px;
     width: 40%;
-}
+}*/
 /*#new div.target input{
     width:auto;
     height:auto;
@@ -266,11 +266,11 @@ input.red:hover{
     width:250px;
     padding-right:4px;
 }*/
-#new div.language select{
+/*#new div.language select{
     height:30px;
     margin-bottom:10px;
     padding:2px 4px;
-}
+}*/
 /* Slide List */
 #list_slide{
     width: 96%;
