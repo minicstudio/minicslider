@@ -99,8 +99,8 @@
         </div>
         <div id="banner"></div>
         <div id="navigation">
-            <a href="#new" id="addNew-button" class="minic-open">{l s='Add New'}</a>
-            <a href="#option" id="options-button" class="minic-open">{l s='Options'}</a>
+            <a href="#new" id="new-button" class="minic-open">{l s='Add New'}</a>
+            <a href="#options" id="options-button" class="minic-open">{l s='Options'}</a>
         </div>
     </div>
     <!-- feedback -->
