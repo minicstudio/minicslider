@@ -503,6 +503,7 @@ class MinicSlider extends Module
 		$this->context->controller->addCSS($this->_path.'views/css/admin.css');
 		// JS
 		$this->context->controller->addJquery();
+		$this->context->controller->addJS($this->_path.'views/js/plugins/jquery.transit/jquery.transit-0.9.9.min.js');
 		$this->context->controller->addJS($this->_path.'views/js/plugins/tipsy/jquery.tipsy.js');
 		// $this->context->controller->addJS($this->_path . 'views/js/minicFeedback.js');
 		// $this->context->controller->addJS($this->_path . 'views/js/minicSlider.js');
