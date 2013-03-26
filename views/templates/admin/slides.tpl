@@ -34,7 +34,7 @@
                                         <a href="http://module.minic.ro/minic-slider-news/using-the-feedback-and-bug-report/" target="_blank" class="help">{l s='help & tips' mod='minicslider'}</a>
                                     </h3>
                                     <div class="title input-holder">
-                                        <input type="text" name="title" class="tooltip" size="41" value="{$slide.title}" title="{l s='This will be the title on the slide.'}" /> 
+                                        <input type="text" name="title" class="tooltip" placeholder="{l s='The title of the slide'}" value="{$slide.title}" title="{l s='This will be the title on the slide.'}" /> 
                                     </div>
                                     <div class="switch-holder">
                                         <div class="switch large {if $slide.active}active{else}inactive{/if}">
@@ -51,17 +51,17 @@
                                     </div>
                                     <div class="url input-holder">
                                       	<label>{l s='Url'}: </label>
-                                      	<input type="text" name="url" class="tooltip" size="41" value="{$slide.url}" title="{l s='ex. http://myshop.com/promotions'}" />  
+                                      	<input type="text" name="url" class="tooltip" placeholder="{l s='Link of the slide'}" value="{$slide.url}" title="{l s='ex. http://myshop.com/promotions'}" />  
                                         <span>{l s='Blank target'}: </span>
                                         <input type="checkbox" name="target" class="tooltip" value="1" {if $slide.target == 1}checked="true"{/if} title="{l s='Check this if you want to open the link in new window.'}" />         
                                     </div>
                                     <div class="alt input-holder">
                                         <label>{l s='Image alt'}: </label>
-                                        <input type="text" name="alt" class="tooltip" size="41" value="{$slide.alt}" title="{l s='The image alt, alternate text for the image'}" />
+                                        <input type="text" name="alt" class="tooltip" placeholder="{l s='An alternate text for the image'}" value="{$slide.alt}" title="{l s='The image alt, alternate text for the image'}" />
                                     </div>
                                     <div class="caption input-holder"> 
                                       	<label>{l s='Caption'}: </label>
-                                    	<textarea type="text" name="caption" class="tooltip" cols="40" rows="6" title="{l s='Be carefull, too long text isnt good and HTML is not allowed.'}" >{$slide.caption}</textarea>
+                                    	<textarea type="text" name="caption" class="tooltip" cols="40" rows="6" title="{l s='Be carefull, too long text isnt good and HTML is not allowed.'}" placeholder="{l s='The slide text'}">{$slide.caption}</textarea>
                                     </div>   
                                 </div>  
                                 <div class="minic-bottom">

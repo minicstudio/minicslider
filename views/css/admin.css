@@ -125,6 +125,16 @@
 			#menu-top #more-module:hover ul{
 				display: block;
 			}
+				#menu-top #minic-studio{
+					text-indent: -99999px;
+					width: 16px;
+					height: 16px;
+					background: url(../img/minic-logo.png) right center no-repeat;
+				}
+				#menu-top #open-bug{
+					border: 0;
+					margin-right: 50px;
+				}
 				/* Module list style */
 				#menu-top ul#module-list li a{
 					width: 378px;
@@ -154,22 +164,33 @@
 					font-size: 14px;
 					color: #000;
 				}
+				#menu-top ul#module-list .description{
+					font-size: 12px;
+					font-weight: normal;
+				}
 				#menu-top ul#module-list .price{
 					font-weight: bold;
 					color: green;
 				}
 		/* Social */
 		#menu-top .social{
-			font-size: 15px;
+			font-size: 16px;
 		}
-			/* Facebook*/
+			/* Facebook */
 			#menu-top .icon-facebook{
 				color: #3b5998;
-				font-size: 15px;
 			}
-			/* Twitter*/
+			/* Twitter */
 			#menu-top .icon-twitter{
 				color: #019ad2;
+			}
+			/* Github */
+			#menu-top .icon-github{
+				color: #000;
+			}
+			/* Google */
+			#menu-top .icon-googleplus{
+				color: #dd4b39;
 			}
 	/* Banner */
 	/* Navigation */
@@ -397,11 +418,6 @@
 	float: left;
 }
 	#slides-list .slide{
-		-webkit-transition: .5s all;
-		-moz-transition: .5s all;
-		-o-transition: .5s all;
-		-ms-transition: .5s all;
-		transition: .5s all;
 		margin-bottom: 2px;
 	}
 	#slides-list .slide.active{
