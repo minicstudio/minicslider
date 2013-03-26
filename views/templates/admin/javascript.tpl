@@ -7,7 +7,7 @@ jQuery(window).load(function(){
     {/if}
 });
 jQuery(document).ready(function($) {
-    // News Feed
+    // News Feed    
     $.getJSON('http://192.168.100.250/laravel/public/process/feed?callback=?',function(feed){
         var version = '{$minic.info.version}';
         var name = '{$minic.info.module}';
@@ -22,13 +22,12 @@ jQuery(document).ready(function($) {
         }
 
         // Module list
-        var list = "<li>{l s='No data available' mod='minicskepetonpro'}</li>";
         if(feed.modules){
             list = '';
             $.each(feed.modules, function() {
                 
                 list += '<li>';
-                list += '<a href="'+ this.link +'" target="_blank" title="{l s='Click for more details' mod='minicskepetonpro'}">';
+                list += '<a href="'+ this.link +'" target="_blank" title="{l s='Click for more details' mod='minicslider'}">';
                 list += '<img src="'+ this.logo +'">';
                 list += '<p>';
                 list += '<span class="title">'+ this.name +'</span>';
@@ -40,8 +39,7 @@ jQuery(document).ready(function($) {
             });
             
         }
-        $('ul#module-list').append(list);
-        
+        $('ul#module-list').html(list);
     });
 });
 </script>

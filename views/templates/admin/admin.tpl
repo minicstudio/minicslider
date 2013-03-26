@@ -99,7 +99,9 @@
             <a href="https://www.facebook.com/minicmodule" class="social" title="Minic studio Facebook page" target="_blank"><i class="icon-facebook"></i></a>
             <div id="more-module">
                 <span>Top Modules</span>
-                <ul id="module-list"></ul>
+                <ul id="module-list">
+                    <li>{l s='No data available' mod='minicslider'}</li>
+                </ul>
             </div>
             <a href="#newsletter" id="open-newsletter" class="open-popup" data-popup="#newsletter">{l s='Newsletter'}</a>
             <a href="#bug" id="open-bug" class="minic-open">{l s='Bug Report'}</a>
