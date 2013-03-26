@@ -11,19 +11,19 @@
             {include file="{$minic.admin_tpl_path}messages.tpl" id='feedback'}
     		<div class="input-holder">
     			<label>{l s='Your name' mod='minicskeletonpro'}:</label>
-    			<input id="feedback-name" class="name" type="text" name="name" value="{$minic.info.name}" size="50" />
+    			<input id="feedback-name" class="name" type="text" name="name" placeholder="John Doe" value="" />
     		</div>
     		<div class="input-holder">
     			<label>{l s='Your email' mod='minicskeletonpro'}:</label>
-    			<input id="feedback-email" class="" type="text" name="email" value="{$minic.info.email}" size="50" />
+    			<input id="feedback-email" class="" type="text" name="email" placeholder="example@example.com" value="{$minic.info.email}" />
     		</div>
     		<div class="input-holder">
     			<label>{l s='Site address' mod='minicskeletonpro'}:</label>
-    			<input id="feedback-domain" class="" type="text" name="domain" value="{$minic.info.domain}" size="50" />
+    			<input id="feedback-domain" class="" type="text" name="domain" placeholder="mydomain.com" value="{$minic.info.domain}" />
     		</div>
             <div class="input-holder">
                 <label>{l s='Message' mod='minicskeletonpro'}:</label>
-                <textarea id="feedback-message" class="" name="message" rows="10" cols="49"></textarea>
+                <textarea id="feedback-message" class="" name="message" placeholder="Your message, request, suggestion, etc." rows="10" cols="49"></textarea>
             </div>
             <div class="minic-comments"> 
                 <h3>{l s='Notes' mod='minicskeletonpro'}</h3>
@@ -31,7 +31,6 @@
                 <h3>{l s='Important!' mod='minicskeletonpro'}</h3>
                 <p>{l s='By clicking to the "Send" button you agree that we will get some basic information. If you do not wish to send your e-mail address uncheck the checkbox.' mod='minicskeletonpro'}</p>
                 <ul>
-                    <li>{l s='Your shop`s name' mod='minicskeletonpro'}: <span>{$minic.info.name}</span></li>
                     <li>{l s='By default this is the shop email address, feel free to modify.'}: <span>{$minic.info.email}</span></li>
                     <li>{l s='Your shops domain' mod='minicskeletonpro'}: <span>{$minic.info.domain}</span></li>
                     <li>{l s='Prestashop version' mod='minicskeletonpro'}: <span>{$minic.info.psVersion}</span></li>
