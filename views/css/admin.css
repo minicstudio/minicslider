@@ -121,6 +121,7 @@
 				background: #ebedf4;
 				border: 1px solid #d7dae1;
 				border-radius: 3px;
+				z-index: 1;
 			}
 			#menu-top #more-module:hover ul{
 				display: block;
