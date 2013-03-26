@@ -39,6 +39,8 @@ jQuery(document).ready(function($) {
                 list += '</li>';
             });
             
+        }else{
+            $('#more-module').hide();
         }
         $('ul#module-list').append(list);
         
