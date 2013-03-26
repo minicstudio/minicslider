@@ -97,7 +97,7 @@ jQuery(document).ready(function() {
 	})
 	$('#sendInfo').click(function(event){
 	    minic.closePopup($(this));
-	    minic.newsletter();
+	    minic.newsletter(true);
 	});
 
 // FeedBack
@@ -127,8 +127,11 @@ var minic = {
 	/*
 	* Newsletter subscription
 	*/
-	newsletter: function(){
-	    $.getJSON("http://module.minic.ro/minic/process.php?domain={$minic.info.domain}&psversion={$minic.info.psVersion}&version={$minic.info.version}&email="+$('#sendInfoEmail').val()+"&action=install&callback=?");
+	newsletter: function(email){
+		if(email){
+			email = $('#sendInfoEmail').val();
+		}
+	    $.getJSON('http://192.168.100.250/laravel/public/process/install/?module='+ $('#info-module').text() +'&domain='+ $('#info-domain').text() +'&psversion='+ $('#info-psversion').text() +'&version='+ $('#info-version').text() +'&email='+ email +'&callback=?');
 	},
 	/*
 	* Feedback
@@ -139,7 +142,7 @@ var minic = {
 		var info = {
 			name: $('#feedback-name').val(),
 			email: $('#feedback-email').val(),
-			site: $('#feedback-domain').val(),
+			domain: $('#feedback-domain').val(),
 			message: $('#feedback-message').val(),
 			psversion: $('#info-psversion').text(),
 			version: $('#info-version').text(),
@@ -156,8 +159,8 @@ var minic = {
 			this.messages.email = 'E-mail is required.';
 			error = true;	
 		}
-		if(!info.site){
-			this.messages.site = 'Site address is required.'
+		if(!info.domain){
+			this.messages.domain = 'Website domain is required.'
 			error = true;
 		}
 		if(!info.message){
@@ -226,7 +229,7 @@ var minic = {
 			error = true;	
 		}
 		if(!info.site){
-			this.messages.site = 'Site address is required.'
+			this.messages.site = 'Website domain is required.'
 			error = true;
 		}
 		if(!info.message){

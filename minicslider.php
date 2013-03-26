@@ -241,6 +241,7 @@ class MinicSlider extends Module
 				'hooks_tpl_path' => $this->hooks_tpl_path,
 
 				'info' => array(
+					'module'	=> $this->name,
 	            	'name'      => Configuration::get('PS_SHOP_NAME'),
 	        		'domain'    => Configuration::get('PS_SHOP_DOMAIN'),
 	        		'email'     => Configuration::get('PS_SHOP_EMAIL'),
