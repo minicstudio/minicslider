@@ -95,6 +95,10 @@
             <a href="https://github.com/minicstudio" class="social" title="Minic studio Github page" target="_blank"><i class="icon-github"></i></a>
             <a href="https://twitter.com/minicstudio" class="social" title="Minic studio Twitter page" target="_blank"><i class="icon-twitter"></i></a>
             <a href="https://www.facebook.com/minicmodule" class="social" title="Minic studio Facebook page" target="_blank"><i class="icon-facebook"></i></a>
+            <div id="more-module">
+                <span>{l s='More Module' mod='minicskeletonpro'}</span>
+                <ul id="module-list"></ul>
+            </div>
             <a href="#newsletter" class="open-popup" data-popup="#newsletter">{l s='Newsletter'}</a>
             <a href="#bug" class="minic-open">{l s='Bug Report'}</a>
             <a href="#feedback" class="minic-open">{l s='Feedback'}</a>

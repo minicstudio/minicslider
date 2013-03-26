@@ -25,12 +25,6 @@
 		text-align: left;
 		padding: 0;
 	}
-	#minic label i{
-		margin-right: 5px;
-	}
-	#minic label i:hover{
-		cursor: pointer;
-	}
 	/* Inputs */
 	#minic input[type="submit"]{
 		-webkit-box-sizing: content-box;
@@ -42,10 +36,9 @@
 		cursor: pointer;
 	}
 	#minic input[type="text"],
-	#minic select,
 	#minic input[type="file"],
+	#minic select,
 	#minic textarea{
-		margin: 0;
 		padding: 5px;
 		outline: none !important;
 		border: 1px solid #c7c7c7;
@@ -53,14 +46,14 @@
 		border-radius: 3px;
 	}
 	#minic input[type="text"]:hover,
-	#minic select:hover,
 	#minic input[type="file"]:hover,
+	#minic select:hover,
 	#minic textarea:hover{
 		border: 1px solid #a8a8a8;
 	}
 	#minic input:focus,
+	#minic input[type="file"]:focus,
 	#minic select:focus,
-	/*#minic input[type="file"]:focus*/
 	#minic textarea:focus{
 		-webkit-box-shadow:  0px 0px 5px 1px rgba(0, 0, 0, 0.22);
 	    box-shadow:  0px 0px 5px 1px rgba(0, 0, 0, 0.22);
@@ -98,7 +91,8 @@
 		display: inline-block;
 		width: 100%;
 	}
-	#menu-top a{
+	#menu-top a,
+	#menu-top #more-module{
 		float: right;
 		color: #525252;
 		font-size: 12px;
@@ -110,6 +104,60 @@
 		border: 0;
 		padding-right: 0;
 	}
+		/* More module */
+		#menu-top #more-module{
+			position: relative;
+		}
+			#menu-top #more-module span:hover{
+				cursor: pointer;
+			}
+			#menu-top ul#module-list{
+				display: none;
+				position: absolute;
+				right: 0;
+				top: 15px;
+				width: 400px;
+				padding: 10px;
+				background: #ebedf4;
+				border: 1px solid #d7dae1;
+				border-radius: 3px;
+			}
+			#menu-top #more-module:hover ul{
+				display: block;
+			}
+				/* Module list style */
+				#menu-top ul#module-list li a{
+					width: 378px;
+					padding: 5px 10px;
+					margin-bottom: 5px;
+					border: 1px solid transparent;
+				}
+				#menu-top ul#module-list li:hover a{
+					background-color: #e2e4eb;
+					border-color: #c5c8d1;
+				}
+				#menu-top ul#module-list img{
+					float: left;
+					margin-right: 10px;
+				}
+				#menu-top ul#module-list p{
+					float: left;
+					width: 336px;
+					margin: 0;
+				}
+				#menu-top ul#module-list p span{
+					display: block;
+					clear: both;
+					width: 100%;
+				}
+				#menu-top ul#module-list .title{
+					font-size: 14px;
+					color: #000;
+				}
+				#menu-top ul#module-list .price{
+					font-weight: bold;
+					color: green;
+				}
 		/* Social */
 		#menu-top .social{
 			font-size: 15px;
@@ -217,7 +265,6 @@
 				display: block;
 			}
 			.minic-content > div.input-holder input[type="text"],
-			.minic-content > div.input-holder input[type="file"],
 			.minic-content > div.input-holder textarea{
 				clear: both;
 				width: 94%;
@@ -246,6 +293,13 @@
 			margin-left: 10px;
 		}
 /*---------- CUSTOM ----------*/
+/* Label */
+#minic label i{
+	margin-right: 5px;
+}
+#minic label i:hover{
+	cursor: pointer;
+}
 /* Menu */
 #new-button{
     background: url(../img/ico-add-new.png) 50% 15% no-repeat;

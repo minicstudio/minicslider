@@ -80,5 +80,4 @@
           </ul>               
       {/foreach}
     </div>  
-    </div>
 </div>
