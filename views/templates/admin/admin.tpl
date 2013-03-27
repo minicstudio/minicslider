@@ -1,29 +1,5 @@
 <script type="text/javascript">
     $(document).ready(function() {
-        // News Feed
-        // var version = $('#feedbackVersion').val();
-        // $.getJSON('http://module.minic.ro/slider/process.php?domain={$minic.info.domain}&psversion={$minic.info.psVersion}&version={$minic.info.version}&action=feed&callback=?',function(feed){
-        //     if(feed.update.version != version){
-        //       $('#sliderBanner').empty().html(feed.update.content);
-        //     }else if(feed.news.news == 'true'){
-        //       $('#sliderBanner').empty().html(feed.news.content);
-        //     }else{
-        //       return false;
-        //     }
-        // });
-
-        // // First start
-        // {if $slider.firstStart}
-        //     $('#sendInfoWindow').fadeIn();
-        // {/if}
-        // $('#newsletter').click(function(event){
-        //     event.preventDefault();
-        //     $('#sendInfoWindow').fadeIn();
-        // })
-        // $('#sendInfo').click(function(event){
-        //     $('#sendInfoWindow').fadeOut();
-        //     $.getJSON("http://module.minic.ro/slider/process.php?domain={$minic.info.domain}&psversion={$minic.info.psVersion}&version={$minic.info.version}&email="+$('#sendInfoEmail').val()+"&action=install&callback=?");
-        // });
 
         // Sortable
         $("ul.languages").sortable({
