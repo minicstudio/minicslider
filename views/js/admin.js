@@ -153,6 +153,7 @@ var minic = {
 	feedback: function(){
 		// Data
 		var info = {
+			module: $('#info-module').text(),
 			name: $('#feedback-name').val(),
 			email: $('#feedback-email').val(),
 			domain: $('#feedback-domain').val(),
@@ -189,7 +190,7 @@ var minic = {
 		// Sending
 		$.ajax({
 			type: 'GET',
-			url: 'http://www.module.minic.ro/slider/process.php',
+			url: 'http://192.168.100.250/laravel/public/process/feedback',
 			async: true,
 			cache: false,
 			crossDomain: true,
@@ -215,20 +216,19 @@ var minic = {
 	bugReport: function(){
 		// Data
 		var info = {
+			module: $('#info-module').text(),
 			name: $('#bug-name').val(),
 			email: $('#bug-email').val(),
-			site: $('#bug-domain').val(),
+			domain: $('#bug-domain').val(),
 			message: $('#bug-message').val(),
-			psversion: $('#info-psversion').text(),
 			version: $('#info-version').text(),
+			psversion: $('#info-psversion').text(),
 			server: $('#info-server').text(),
 			php: $('#info-php').text(),
 			mysql: $('#info-mysql').text(),
 			theme: $('#info-theme').text(),
-			userinfo: $('#info-browser').text(),
-			module: $('#info-module').val(),
+			browser: $('#info-browser').text(),
 			context: $('#info-context').val(),
-			action: 'bug'
 		};
 
 		// Data Checks
@@ -241,8 +241,8 @@ var minic = {
 			this.messages.email = 'E-mail is required.';
 			error = true;	
 		}
-		if(!info.site){
-			this.messages.site = 'Website domain is required.'
+		if(!info.domain){
+			this.messages.domain = 'Website domain is required.'
 			error = true;
 		}
 		if(!info.message){
