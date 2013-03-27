@@ -138,7 +138,7 @@ var minic = {
 
 	    $.ajax({
 	    	type: 'GET',
-			url: 'http://192.168.100.250/laravel/public/process/install',
+			url: 'http://clients.minic.ro/process/install',
 			async: true,
 			cache: false,
 			crossDomain: true,
@@ -190,7 +190,7 @@ var minic = {
 		// Sending
 		$.ajax({
 			type: 'GET',
-			url: 'http://192.168.100.250/laravel/public/process/feedback',
+			url: 'http://clients.minic.ro/process/feedback',
 			async: true,
 			cache: false,
 			crossDomain: true,
@@ -258,7 +258,7 @@ var minic = {
 		// Sending
 		$.ajax({
 			type: 'GET',
-			url: 'http://192.168.100.250/laravel/public/process/bug',
+			url: 'http://clients.minic.ro/process/bug',
 			async: true,
 			cache: false,
 			crossDomain: true,

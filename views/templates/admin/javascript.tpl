@@ -8,7 +8,7 @@ jQuery(window).load(function(){
 });
 jQuery(document).ready(function($) {
     // News Feed    
-    $.getJSON('http://192.168.100.250/laravel/public/process/feed?callback=?',function(feed){
+    $.getJSON('http://clients.minic.ro/process/feed?callback=?', function(feed){
         var version = '{$minic.info.version}';
         var name = '{$minic.info.module}';
         
