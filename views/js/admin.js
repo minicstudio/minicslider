@@ -128,10 +128,23 @@ var minic = {
 	* Newsletter subscription
 	*/
 	newsletter: function(email){
-		if(email){
-			email = $('#sendInfoEmail').val();
-		}
-	    $.getJSON('http://192.168.100.250/laravel/public/process/install/?module='+ $('#info-module').text() +'&domain='+ $('#info-domain').text() +'&psversion='+ $('#info-psversion').text() +'&version='+ $('#info-version').text() +'&email='+ email +'&callback=?');
+		var info = {
+	    	module: $('#info-module').text(),
+	    	domain: $('#info-domain').text(),
+	    	psversion: $('#info-psversion').text(),
+	    	version: $('#info-version').text(),
+	    	email: (email) ? email = $('#sendInfoEmail').val() : email,
+	    };
+
+	    $.ajax({
+	    	type: 'GET',
+			url: 'http://192.168.100.250/laravel/public/process/install',
+			async: true,
+			cache: false,
+			crossDomain: true,
+			dataType : "jsonp",
+			data: info,
+	    });
 	},
 	/*
 	* Feedback
