@@ -1,7 +1,7 @@
 #################
 ## Prestashop & Self
 #################
-config.xml
+*.xml
 uploads/
 translations/
 
