@@ -209,18 +209,6 @@ class MinicSlider extends Module
                 	'feedback' => _PS_MODULE_DIR_.'minicslider/views/templates/admin/admin-feedback.tpl',
                 	'bug' => _PS_MODULE_DIR_.'minicslider/views/templates/admin/admin-bug.tpl'
             	),
-          //   	'info' => array(
-          //   		'name' => Configuration::get('PS_SHOP_NAME'),
-          //   		'domain' => Configuration::get('PS_SHOP_DOMAIN'),
-          //   		'email' => Configuration::get('PS_SHOP_EMAIL'),
-          //   		'version' => $this->version,
-          //       	'psVersion' => _PS_VERSION_,
-          //   		'server' => $_SERVER['SERVER_SOFTWARE'],
-          //   		'php' =>phpversion(),
-          //   		'mysql' => Db::getInstance()->getVersion(),
-          //   		'theme' => _THEME_NAME_,
-          //   		'userInfo' => $_SERVER['HTTP_USER_AGENT']
-        		// ),
 				'postAction' => 'index.php?tab=AdminModules&configure='.$this->name.'&token='.Tools::getAdminTokenLite('AdminModules').'&tab_module=advertising_marketing&module_name='.$this->name.'',
 				'sortUrl' => _PS_BASE_URL_.__PS_BASE_URI__.'modules/'.$this->name.'/ajax_'.$this->name.'.php?action=updateOrder&secure_key='.$this->secure_key,
 				'firstStart' => Configuration::get('PS_MINIC_SLIDER_FIRST'),
@@ -494,16 +482,13 @@ class MinicSlider extends Module
 		// CSS
 		$this->context->controller->addCSS($this->_path.'views/css/elusive-icons/elusive-webfont.css');
 		$this->context->controller->addCSS($this->_path.'views/js/plugins/tipsy/tipsy.css');
-		// $this->context->controller->addCSS($this->_path.'views/css/style.css');
+		$this->context->controller->addCSS($this->_path.'views/css/style.css');
 		$this->context->controller->addCSS($this->_path.'views/css/admin.css');
 		// JS
 		$this->context->controller->addJquery();
 		$this->context->controller->addJS($this->_path.'views/js/plugins/jquery.transit/jquery.transit-0.9.9.min.js');
 		$this->context->controller->addJS($this->_path.'views/js/plugins/tipsy/jquery.tipsy.js');
-		// $this->context->controller->addJS($this->_path . 'views/js/minicFeedback.js');
-		// $this->context->controller->addJS($this->_path . 'views/js/minicSlider.js');
 		$this->context->controller->addJS($this->_path.'views/js/jquery-ui-1.9.0.custom.min.js');
-		// $this->context->controller->addJqueryUI('ui.sortable');
 		$this->context->controller->addJS($this->_path.'views/js/admin.js');
 
 	}
