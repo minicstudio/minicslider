@@ -1,0 +1,22 @@
+v1.0.8
+- changed preview images
+
+v1.0.7
+- fixed some tpl issues
+- fixed quick links
+- added quick link to dashboard
+
+v1.0.3
+- fixed 2 small issue
+- added if condition into HookBackOfficeHeader to avoid loading if not necessary
+
+v1.0.0
+- recreated UI
+- updated message system
+- added mass delete/deactivate
+- added black and white theme
+- added Theme Creator/Editor
+- added Ajax Search for links
+- added From/To Date option
+- added Draft option
+- multistore compatible
