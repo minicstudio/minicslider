@@ -1,11 +1,12 @@
 <?php
 /*
-* Copyright (C) 2012  S.C Minic Studio S.R.L.
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public License
-* as published by the Free Software Foundation; either version 2
-* of the License, or (at your option) any later version.
+* minicslider - a module template for Prestashop v1.5+
+* Copyright (C) 2013 S.C. Minic Studio S.R.L.
+* 
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
 * 
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,14 +14,7 @@
 * GNU General Public License for more details.
 * 
 * You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*
-* @author  	  S.C Minic Studio S.R.L.
-* @copyright  Copyright S.C Minic Studio S.R.L. 2012. All rights reserved.
-* @license 	  GPLv2 License http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
-* @version 	  v3.0.0
-*
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 if (!defined('_PS_VERSION_'))
@@ -34,7 +28,7 @@ class MinicSlider extends Module
 	    {
 		    $this->name = 'minicslider';
 		    $this->tab = 'advertising_marketing';
-		    $this->version = '3.0.2';
+		    $this->version = '4.0.0';
 		    $this->author = 'minic studio';
 		    $this->need_instance = 1;
 			$this->secure_key = Tools::encrypt($this->name);
@@ -43,6 +37,12 @@ class MinicSlider extends Module
 	
 		    $this->displayName = $this->l('minic slider');
 		    $this->description = $this->l('Powerfull image slider for advertising.');
+
+		    // Paths
+			$this->module_path 		= _PS_MODULE_DIR_.$this->name.'/';
+			$this->admin_tpl_path 	= _PS_MODULE_DIR_.$this->name.'/views/templates/admin/';
+			$this->front_tpl_path	= _PS_MODULE_DIR_.$this->name.'/views/templates/front/';
+			$this->hooks_tpl_path	= _PS_MODULE_DIR_.$this->name.'/views/templates/hooks/';
 	    }
 	
 	private function installDB()
@@ -111,7 +111,14 @@ class MinicSlider extends Module
 	
 	public function install()
 	    {
-			if (parent::install() && $this->installDB() && $this->insertOptions() && $this->registerHook('displayTop') && $this->registerHook('displayHeader') && $this->registerHook('displayBackOfficeHeader') && Configuration::updateValue('PS_MINIC_SLIDER_FIRST', '1')){
+			if (parent::install() && 
+				$this->installDB() && 
+				$this->insertOptions() && 
+				$this->registerHook('displayTop') && 
+				$this->registerHook('displayHeader') && 
+				$this->registerHook('displayAdminHomeQuickLinks') &&
+				$this->registerHook('displayBackOfficeHeader') && 
+				Configuration::updateValue('PS_MINIC_SLIDER_FIRST', '1')){
 				return true;
 			}else{
 				$this->uninstall();
@@ -137,7 +144,10 @@ class MinicSlider extends Module
 	
 	public function getContent()
 		{
-			if (Tools::isSubmit('submitOptions')){
+			$this->context->smarty->assign('error', 0);
+			$this->context->smarty->assign('confirmation', 0);
+
+			if (Tools::isSubmit('submitMinicOptions')){
 				$this->_handleOptions();
 			} elseif (Tools::isSubmit('submitNewSlide')){
 				$this->_handleNewSlide();
@@ -199,31 +209,36 @@ class MinicSlider extends Module
                 	'feedback' => _PS_MODULE_DIR_.'minicslider/views/templates/admin/admin-feedback.tpl',
                 	'bug' => _PS_MODULE_DIR_.'minicslider/views/templates/admin/admin-bug.tpl'
             	),
-            	'info' => array(
-            		'name' => Configuration::get('PS_SHOP_NAME'),
-            		'domain' => Configuration::get('PS_SHOP_DOMAIN'),
-            		'email' => Configuration::get('PS_SHOP_EMAIL'),
-            		'version' => $this->version,
-                	'psVersion' => _PS_VERSION_,
-            		'server' => $_SERVER['SERVER_SOFTWARE'],
-            		'php' =>phpversion(),
-            		'mysql' => Db::getInstance()->getVersion(),
-            		'theme' => _THEME_NAME_,
-            		'userInfo' => $_SERVER['HTTP_USER_AGENT']
-        		),
-				'postAction' => 'index.php?tab=AdminModules&configure='.$this->name.'&token='.Tools::getAdminTokenLite('AdminModules').'&tab_module=advertising_marketing='.$this->name.'',
+				'postAction' => 'index.php?tab=AdminModules&configure='.$this->name.'&token='.Tools::getAdminTokenLite('AdminModules').'&tab_module=advertising_marketing&module_name='.$this->name.'',
 				'sortUrl' => _PS_BASE_URL_.__PS_BASE_URI__.'modules/'.$this->name.'/ajax_'.$this->name.'.php?action=updateOrder&secure_key='.$this->secure_key,
 				'firstStart' => Configuration::get('PS_MINIC_SLIDER_FIRST'),
 				'id_shop' => (int)$this->context->shop->id
 			));	
-			
-			$this->context->controller->addCSS($this->_path . 'views/css/tipsy.css');
-			$this->context->controller->addCSS($this->_path . 'views/css/style.css');
-			$this->context->controller->addJS($this->_path . 'views/js/fn.ghostText.min.js');
-			$this->context->controller->addJS($this->_path . 'views/js/jquery.tipsy.js');
-			$this->context->controller->addJS($this->_path . 'views/js/minicFeedback.js');
-			$this->context->controller->addJS($this->_path . 'views/js/minicSlider.js');
-			$this->context->controller->addJS($this->_path . 'views/js/jquery-ui-1.9.0.custom.min.js');
+
+			$this->smarty->assign('minic', array(
+				'first_start' 	 => Configuration::get('PS_MINIC_SLIDER_FIRST'),//Configuration::get(strtoupper($this->name).'_START'),
+
+				'admin_tpl_path' => $this->admin_tpl_path,
+				'front_tpl_path' => $this->front_tpl_path,
+				'hooks_tpl_path' => $this->hooks_tpl_path,
+
+				'info' => array(
+					'module'	=> $this->name,
+	            	'name'      => Configuration::get('PS_SHOP_NAME'),
+	        		'domain'    => Configuration::get('PS_SHOP_DOMAIN'),
+	        		'email'     => Configuration::get('PS_SHOP_EMAIL'),
+	        		'version'   => $this->version,
+	            	'psVersion' => _PS_VERSION_,
+	        		'server'    => $_SERVER['SERVER_SOFTWARE'],
+	        		'php'       => phpversion(),
+	        		'mysql' 	=> Db::getInstance()->getVersion(),
+	        		'theme' 	=> _THEME_NAME_,
+	        		'userInfo'  => $_SERVER['HTTP_USER_AGENT'],
+	        		'today' 	=> date('Y-m-d'),
+	        		'module'	=> $this->name,
+	        		'context'	=> (Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 0) ? 1 : ($this->context->shop->getTotalShops() != 1) ? $this->context->shop->getContext() : 1,
+				)
+			));
 
 			if(Configuration::get('PS_MINIC_SLIDER_FIRST') == 1)
 				Configuration::updateValue('PS_MINIC_SLIDER_FIRST', '0');
@@ -264,7 +279,8 @@ class MinicSlider extends Module
 				$this->context->smarty->assign('error', $this->l('An error occurred while saving data. I`m sure this is a DataBase error.'));
 				return false;
 			}
-		
+
+			$this->context->smarty->assign('confirmation', $this->l('Saved successfull.'));		
 			return true;
 		}
 	
@@ -374,52 +390,65 @@ class MinicSlider extends Module
 		{
 			$path = $_SERVER['DOCUMENT_ROOT'].$this->_path.'/uploads/';
 			$pathThumb = $_SERVER['DOCUMENT_ROOT'].$this->_path.'/uploads/thumbs/';
+
+			// Check if thumb dir is exists and create if not
+			if(!file_exists($pathThumb) && !is_dir($pathThumb))
+				mkdir($pathThumb);
+
+			// Replace whitesapce
 			$imageName = explode('.', str_replace(' ', '_', $image['name']));
 			$name = $imageName[0].'.'.$imageName[1];
-			if($newName)
-				$name = str_replace(' ', '_', $newName).'.'.$imageName[1];
-			
-			Configuration::set('PS_IMAGE_GENERATION_METHOD', 1);
-		
+			// Replace unwanted chars
+			if($newName){
+				$unwanted_chars = array(
+					'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
+                    'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
+                    'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
+                    'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
+                    'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y', 'Ğ'=>'G', 'İ'=>'I', 'Ş'=>'S', 'ğ'=>'g', 'ı'=>'i', 
+                    'ş'=>'s', 'ü'=>'u',
+                );
+				$nameB = strtr( $newName, $unwanted_chars );
+				$name = str_replace(' ', '_', $nameB).'.'.$imageName[1];
+			}
+
+			// if new name is empty and picture is exists create a new name
 			if(file_exists($path.$name) && $newName == NULL){
 				$name = $imageName[0].date('-i-s').'.'.$imageName[1];
 			}
-			if (!isPicture($image)) {
-				$this->context->smarty->assign('error', $this->l('Image format not recognized, allowed formats are: .gif, .jpg, .png'));
-				return false;
-			}else{
-				if (checkImage($image, $this->maxImageSize)){
-					$this->context->smarty->assign('error', $this->l('Image is to large: ').$image['size'].' kb '.$this->l('Maximum allowed: ').$this->maxImageSize.' kb');
-					return false;
-				}else{
-					if (!$tmpName = tempnam(_PS_TMP_IMG_DIR_, 'PS') OR !move_uploaded_file($image['tmp_name'], $tmpName)){
-						$this->context->smarty->assign('error', $this->l('An error occurred while moving files. Please check permissions.'));
-						return false;
-						unlink($tmpName);
-					}else{
-						if (!imageResize($tmpName, $pathThumb.'admin_'.$name,250)){
-							$this->context->smarty->assign('error', $this->l('An error occurred while creating thumbnails.'));
-							return false;
-							unlink($tmpName);
-						}else{
-							if (!imageResize($tmpName, $pathThumb.'front_'.$name,50)){
-								$this->context->smarty->assign('error', $this->l('An error occurred while creating thumbnails.'));
-								return false;
-								unlink($tmpName);
-							}else{
-								if (!rename($tmpName, $path.$name)){
-									$this->context->smarty->assign('error', $this->l('An error occurred while renaming files.'));
-									unlink($tmpName);
-								}else{
-									$image = $name;
-									chmod($path.$name, 0644);
-									return $image;
-								}
-							}
-						}
-					}
-				}
+
+			// Check image size and format
+			if($error = ImageManager::validateUpload($image, $this->maxImageSize)){
+				$this->context->smarty->assign('error', $error);
+				return;
 			}
+
+			// Move image
+			if(!ImageManager::resize($image['tmp_name'], dirname(__FILE__).'/uploads/'.$name)){
+				$this->context->smarty->assign('error', $this->l('An error occured during the upload, please check the permissions.'));
+				unlink($tmpName);
+				return;
+			}			
+
+			// Create thumbnail for slider
+			$imgSize = getimagesize($path.$name);
+			if($imgSize[0] >= $imgSize[1]){
+				// Resize based on width
+				$imgWidth = 50;
+				$imgHeight = ($imgSize[1]/100)*(5000/$imgSize[0]);
+			}else{
+				// Resize based on height
+				$imgHeight = 50;
+				$imgWidth = ($imgSize[0]/100)*(5000/$imgSize[1]);
+			}
+
+			// Actual resize
+			if(!ImageManager::resize($path.$name, $pathThumb.$name, (int)$imgWidth, (int)$imgHeight)){
+				$this->context->smarty->assign('error', $this->l('An error occurred during the image upload. Please check the upload directory permission in the module folder.'));
+				return;
+			}
+
+			return $name;
 		}	
 	
 	private function _deleteImages($image)
@@ -428,32 +457,60 @@ class MinicSlider extends Module
 			$pathThumb = $_SERVER['DOCUMENT_ROOT'].$this->_path.'/uploads/thumbs/';		
 			
 			if(file_exists($path.$image)){
-				if(!unlink($path.$image) || !unlink($pathThumb.'admin_'.$image) || !unlink($pathThumb.'front_'.$image))
+				if(!unlink($path.$image) || !unlink($pathThumb.$image))
 					$this->context->smarty->assign('error', $this->l('Cant delete images, please check permissions!'));			
 			}else{
 				$this->context->smarty->assign('error', $this->l('Image doesn`t exists!'));
 			}
 		}
+
+	/**
+	 * Hook for back office dashboard
+	 */
+	public function hookDisplayAdminHomeQuickLinks()
+	{	
+		$this->context->smarty->assign('minicslider', $this->name);
+	    return $this->display(__FILE__, 'views/templates/hooks/quick_links.tpl');    
+	}
 	
+	public function hookDisplayBackOfficeHeader()
+	{
+		// Check if module is loaded
+		if (Tools::getValue('configure') != $this->name)
+			return false;
+
+		// CSS
+		$this->context->controller->addCSS($this->_path.'views/css/elusive-icons/elusive-webfont.css');
+		$this->context->controller->addCSS($this->_path.'views/js/plugins/tipsy/tipsy.css');
+		$this->context->controller->addCSS($this->_path.'views/css/style.css');
+		$this->context->controller->addCSS($this->_path.'views/css/admin.css');
+		// JS
+		$this->context->controller->addJquery();
+		$this->context->controller->addJS($this->_path.'views/js/plugins/jquery.transit/jquery.transit-0.9.9.min.js');
+		$this->context->controller->addJS($this->_path.'views/js/plugins/tipsy/jquery.tipsy.js');
+		$this->context->controller->addJS($this->_path.'views/js/jquery-ui-1.9.0.custom.min.js');
+		$this->context->controller->addJS($this->_path.'views/js/admin.js');
+
+	}
+
 	public function hookDisplayHeader()
 		{
-			$this->context->controller->addCSS($this->_path.'views/css/nivo-slider.css');
-			$this->context->controller->addJS($this->_path.'views/js/jquery.nivo.slider.pack.js');
+			$this->context->controller->addCSS($this->_path.'views/js/plugins/nivo-slider/nivo-slider.css');
+			$this->context->controller->addJS($this->_path.'views/js/plugins/nivo-slider/jquery.nivo.slider.pack.js');
 		}
  	
  	public function hookHome($position = '')
 	 	{
 			$defLanguages = (int)Configuration::get('PS_LANG_DEFAULT');
 			$activeLanguages = Language::getLanguages(true);
-			$allLanguages = Language::getLanguages(false);
-			$defLangIso = $allLanguages[$defLanguages-1]['iso_code'];
-			$id_shop = (int)$this->context->shop->id;
-			// $this->context->smarty->assign('defaultLangIso', $defLangIso);
+			$allLanguages = Language::getLanguages(false);			
+			$defLangIso = $this->context->language->iso_code;
+			$id_shop = $this->context->shop->id;
+
 			$options = Db::getInstance()->getRow('SELECT * FROM `'._DB_PREFIX_.'minic_options`');
 			$tpl = 'single.tpl';
 			if($options['front'] == 1)
 				$tpl = 'multiple.tpl';
-			$width = array();
 			$slides = array();
 	
 			if($options['single'] == 0){
@@ -487,7 +544,7 @@ class MinicSlider extends Module
 				),
 				'path' => array(
 					'images' => $this->_path.'uploads/',
-					'thumbs' => $this->_path.'uploads/thumbs/front_'
+					'thumbs' => $this->_path.'uploads/thumbs/'
 				),
 				'tpl' => _PS_MODULE_DIR_.'minicslider/views/templates/front/'.$tpl,
 				'position' => $position
