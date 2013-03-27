@@ -1,9 +1,10 @@
 V4.0.0
 - added new UI
-- upgraded newsletter/feedback/bug report 
 - added modules list
 - added social links
+- added dashboard links
 - changed upload process
+- removed quick access link
 - bugfixes
 
 V3.1.0
