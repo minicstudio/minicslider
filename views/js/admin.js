@@ -174,7 +174,7 @@ var minic = {
 			error = true;	
 		}
 		if(!info.domain){
-			this.messages.domain = 'Website domain is required.'
+			this.messages.domain = 'Website domain is required.';
 			error = true;
 		}
 		if(!info.message){
@@ -242,7 +242,7 @@ var minic = {
 			error = true;	
 		}
 		if(!info.domain){
-			this.messages.domain = 'Website domain is required.'
+			this.messages.domain = 'Website domain is required.';
 			error = true;
 		}
 		if(!info.message){
@@ -258,7 +258,7 @@ var minic = {
 		// Sending
 		$.ajax({
 			type: 'GET',
-			url: 'http://www.module.minic.ro/slider/process.php',
+			url: 'http://192.168.100.250/laravel/public/process/bug',
 			async: true,
 			cache: false,
 			crossDomain: true,
