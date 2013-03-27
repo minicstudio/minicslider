@@ -1,3 +1,11 @@
+V4.0.0
+- added new UI
+- upgraded newsletter/feedback/bug report 
+- added modules list
+- added social links
+- changed upload process
+- bugfixes
+
 V3.1.0
 - changed the uplaod process
 - changed the submitOption to avoid conflict with Prestashop
