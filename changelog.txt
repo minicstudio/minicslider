@@ -1,3 +1,9 @@
+V4.1.3
+- updated Nivo Slider to the latest version (this fix ie linking bug)
+- fixed slide list wrong positioning when more than 3 language available
+- fixed translation issues
+- simplified front tpl
+
 V4.0.0
 - added new UI
 - added modules list
