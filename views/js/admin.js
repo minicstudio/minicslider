@@ -1,10 +1,11 @@
 jQuery(document).ready(function() {
 /* Slides Navigation */  
+	var languages_nbr = $('.slides-holder ul').size();
 	$('#slides-navigation a').click(function(event){
 		event.preventDefault();
 		$('#slides-navigation').find('.active').removeClass('active');
 		$(this).addClass('active');
-		$('.slides-holder').transition({x : -$(this).index()*50+'%'}, 500, 'snap');
+		$('.slides-holder').transition({x : -($(this).index()*100)/languages_nbr+'%'}, 500, 'snap');
 	});
 
 /* Slider List open/close */
