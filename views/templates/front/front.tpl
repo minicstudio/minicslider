@@ -24,8 +24,8 @@
             controlNavThumbs: {if $minicSlider.options.thumbnail == 1}true{else}false{/if},
             pauseOnHover: {if $minicSlider.options.hover == 1}true{else}false{/if}, 
             manualAdvance: {if $minicSlider.options.manual == 1}true{else}false{/if}, 
-            prevText: '{l s='Prev'}', 
-            nextText: '{l s='Next'}', 
+            prevText: '{l s='Prev' mod='minicslider'}', 
+            nextText: '{l s='Next' mod='minicslider'}', 
             randomStart: {if $minicSlider.options.random == 1}true{else}false{/if}
         });
     });

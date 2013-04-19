@@ -23,7 +23,7 @@
                         <div class="slide-header {if $slide.active != 1}inactive{/if}">
                             <i class="orderer icon-align-justify"></i>
                             <span class="order">{if $slide.id_order le 9}0{/if}{$slide.id_order}</span>
-                            <span class="title">{if $slide.title}{$slide.title}{else}{l s='Untitled slide'}{/if}</span>
+                            <span class="title">{if $slide.title}{$slide.title}{else}{l s='Untitled slide' mod='minicslider'}{/if}</span>
                             <span class="{if $slide.active == 1}active{else}deactivated{/if}"></span>
                             <span class="arrow"></span>
                         </div>
@@ -34,7 +34,7 @@
                                         <a href="http://module.minic.ro/minic-slider-news/using-the-feedback-and-bug-report/" target="_blank" class="help">{l s='help & tips' mod='minicslider'}</a>
                                     </h3>
                                     <div class="title input-holder">
-                                        <input type="text" name="title" class="tooltip" placeholder="{l s='The title of the slide'}" value="{$slide.title}" title="{l s='This will be the title on the slide.'}" /> 
+                                        <input type="text" name="title" class="tooltip" placeholder="{l s='The title of the slide'}" value="{$slide.title}" title="{l s='This will be the title on the slide.' mod='minicslider'}" /> 
                                     </div>
                                     <div class="switch-holder">
                                         <div class="switch large {if $slide.active}active{else}inactive{/if}">
@@ -45,23 +45,23 @@
                                 </div>
                                 <div class="minic-content">
                                     <div class="image-holder input-holder">
-                                        <label>{l s='Image' mod='minicslider'}</label>
+                                        <label>{l s='Image' mod='minicslider' mod='minicslider'}</label>
                                         <img src="{$module_dir}uploads/{$slide.image}" />
                                         <input type="file" name="newImage" class="file"/>
                                     </div>
                                     <div class="url input-holder">
-                                      	<label>{l s='Url'}: </label>
-                                      	<input type="text" name="url" class="tooltip" placeholder="{l s='Link of the slide'}" value="{$slide.url}" title="{l s='ex. http://myshop.com/promotions'}" />  
-                                        <span>{l s='Blank target'}: </span>
-                                        <input type="checkbox" name="target" class="tooltip" value="1" {if $slide.target == 1}checked="true"{/if} title="{l s='Check this if you want to open the link in new window.'}" />         
+                                      	<label>{l s='Url' mod='minicslider'}: </label>
+                                      	<input type="text" name="url" class="tooltip" placeholder="{l s='Link of the slide'}" value="{$slide.url}" title="{l s='ex. http://myshop.com/promotions' mod='minicslider'}" />  
+                                        <span>{l s='Blank target' mod='minicslider'}: </span>
+                                        <input type="checkbox" name="target" class="tooltip" value="1" {if $slide.target == 1}checked="true"{/if} title="{l s='Check this if you want to open the link in new window.' mod='minicslider'}" />         
                                     </div>
                                     <div class="alt input-holder">
-                                        <label>{l s='Image alt'}: </label>
-                                        <input type="text" name="alt" class="tooltip" placeholder="{l s='An alternate text for the image'}" value="{$slide.alt}" title="{l s='The image alt, alternate text for the image'}" />
+                                        <label>{l s='Image alt' mod='minicslider'}: </label>
+                                        <input type="text" name="alt" class="tooltip" placeholder="{l s='An alternate text for the image'}" value="{$slide.alt}" title="{l s='The image alt, alternate text for the image' mod='minicslider'}" />
                                     </div>
                                     <div class="caption input-holder"> 
-                                      	<label>{l s='Caption'}: </label>
-                                    	<textarea type="text" name="caption" class="tooltip" cols="40" rows="6" title="{l s='Be carefull, too long text isnt good and HTML is not allowed.'}" placeholder="{l s='The slide text'}">{$slide.caption}</textarea>
+                                      	<label>{l s='Caption' mod='minicslider'}: </label>
+                                    	<textarea type="text" name="caption" class="tooltip" cols="40" rows="6" title="{l s='Be carefull, too long text isnt good and HTML is not allowed.'}" placeholder="{l s='The slide text' mod='minicslider'}">{$slide.caption}</textarea>
                                     </div>   
                                 </div>  
                                 <div class="minic-bottom">
@@ -69,8 +69,8 @@
                                     <input type="hidden" name="orderId" value="{$slide.id_order}" />
                                     <input type="hidden" name="slideIso" value="{$slide.lang_iso}" />
                                     <input type="hidden" name="oldImage" value="{$slide.image}" />    
-                                    <input type="submit" name="deleteSlide" value="{l s='Delete'}" id="delete-slide" class="button-large red disabled" />   
-                                    <input type="submit" name="editSlide" value="{l s='Update'}" id="update-slide" class="button-large green" />       
+                                    <input type="submit" name="deleteSlide" value="{l s='Delete' mod='minicslider'}" id="delete-slide" class="button-large red disabled" />   
+                                    <input type="submit" name="editSlide" value="{l s='Update' mod='minicslider'}" id="update-slide" class="button-large green" />       
                                     <a href="#{$iso}_{$slide.id_order}" class="button-large grey minic-close">{l s='Close' mod='minicslider'}</a>
                                 </div>    
                             </form>

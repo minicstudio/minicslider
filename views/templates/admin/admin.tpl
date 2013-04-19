@@ -15,7 +15,7 @@
                     {ldelim}slides: $(this).sortable("serialize"){rdelim}, 
                     function(response){
                         if(response.success == "true"){
-                            showResponse($("#sortable"), "{l s='Saved successfull'}", 'conf');
+                            showResponse($("#sortable"), "{l s='Saved successfull' mod='minicslider'}", 'conf');
                             var i = 1;
                             list.children("li").each(function(){
                                 number = i;
@@ -26,7 +26,7 @@
                                 i++;
                             });
                         }else{
-                            showResponse($("#sortable"), "{l s='Something went wrong, please refresh the page and try again'}", 'error'); 
+                            showResponse($("#sortable"), "{l s='Something went wrong, please refresh the page and try again' mod='minicslider'}", 'error'); 
                         }
                   }
                 );
@@ -53,17 +53,17 @@
             <div id="more-module">
                 <span>Top Modules</span>
                 <ul id="module-list">
-                    <li>{l s='No data available' mod='minicslider'}</li>
+                    <li>{l s='No data available' mod='minicslider' mod='minicslider'}</li>
                 </ul>
             </div>
-            <a href="#newsletter" id="open-newsletter" class="open-popup" data-popup="#newsletter">{l s='Newsletter'}</a>
-            <a href="#bug" id="open-bug" class="minic-open">{l s='Bug Report'}</a>
-            <a href="#feedback" id="open-feedback" class="minic-open">{l s='Feedback'}</a>
+            <a href="#newsletter" id="open-newsletter" class="open-popup" data-popup="#newsletter">{l s='Newsletter' mod='minicslider'}</a>
+            <a href="#bug" id="open-bug" class="minic-open">{l s='Bug Report' mod='minicslider'}</a>
+            <a href="#feedback" id="open-feedback" class="minic-open">{l s='Feedback' mod='minicslider'}</a>
         </div>
         <div id="banner"></div>
         <div id="navigation">
-            <a href="#new" id="new-button" class="minic-open">{l s='Add New'}</a>
-            <a href="#options" id="options-button" class="minic-open">{l s='Options'}</a>
+            <a href="#new" id="new-button" class="minic-open">{l s='Add New' mod='minicslider'}</a>
+            <a href="#options" id="options-button" class="minic-open">{l s='Options' mod='minicslider'}</a>
         </div>
     </div>
     <!-- feedback -->
