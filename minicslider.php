@@ -501,25 +501,14 @@ class MinicSlider extends Module
  	
  	public function hookHome($position = '')
 	 	{
-			$defLanguages = (int)Configuration::get('PS_LANG_DEFAULT');
-			$activeLanguages = Language::getLanguages(true);
-			$allLanguages = Language::getLanguages(false);			
-			$defLangIso = $this->context->language->iso_code;
+			$id_lang = (int)Configuration::get('PS_LANG_DEFAULT');
 			$id_shop = $this->context->shop->id;
 
 			$options = Db::getInstance()->getRow('SELECT * FROM `'._DB_PREFIX_.'minic_options`');
-			$tpl = 'single.tpl';
-			if($options['front'] == 1)
-				$tpl = 'multiple.tpl';
-			$slides = array();
-	
-			if($options['single'] == 0){
-				$slides[$defLangIso] = Db::getInstance()->ExecuteS('SELECT * FROM `'._DB_PREFIX_.'minic_slider` WHERE (id_lang ='.$defLanguages.' AND id_shop = '.$id_shop.' AND active = 1) ORDER BY id_order ASC');			
-			}else{
-				foreach ($activeLanguages as $lang) {
-					$slides[$lang['iso_code']] = Db::getInstance()->ExecuteS('SELECT * FROM `'._DB_PREFIX_.'minic_slider` WHERE (id_lang ='.$lang['id_lang'].' AND id_shop = '.$id_shop.' AND active = 1) ORDER BY id_order ASC');	
-				}
-			}			
+
+			if($options['single'] == 1)
+				$id_lang = $this->context->language->id;
+			$slides = Db::getInstance()->ExecuteS('SELECT * FROM `'._DB_PREFIX_.'minic_slider` WHERE (id_lang ='.$id_lang.' AND id_shop = '.$id_shop.' AND active = 1) ORDER BY id_order ASC');					
 	
 			$this->context->smarty->assign('slides', $slides);		
 			$this->context->smarty->assign('minicSlider', array(
@@ -546,7 +535,6 @@ class MinicSlider extends Module
 					'images' => $this->_path.'uploads/',
 					'thumbs' => $this->_path.'uploads/thumbs/'
 				),
-				'tpl' => _PS_MODULE_DIR_.'minicslider/views/templates/front/'.$tpl,
 				'position' => $position
 			));
 	 	
@@ -568,5 +556,3 @@ class MinicSlider extends Module
 			return $this->hookHome('top');
 		}
 }
-
-?>
