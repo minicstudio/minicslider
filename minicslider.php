@@ -28,7 +28,7 @@ class MinicSlider extends Module
 	    {
 		    $this->name = 'minicslider';
 		    $this->tab = 'advertising_marketing';
-		    $this->version = '4.1.3';
+		    $this->version = '4.1.5';
 		    $this->author = 'minic studio';
 		    $this->need_instance = 1;
 			$this->secure_key = Tools::encrypt($this->name);
