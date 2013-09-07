@@ -28,7 +28,7 @@ class MinicSlider extends Module
 	    {
 		    $this->name = 'minicslider';
 		    $this->tab = 'advertising_marketing';
-		    $this->version = '4.1.5';
+		    $this->version = '4.1';
 		    $this->author = 'minic studio';
 		    $this->need_instance = 1;
 			$this->secure_key = Tools::encrypt($this->name);
@@ -153,12 +153,42 @@ class MinicSlider extends Module
 				$this->_handleNewSlide();
 			} elseif (Tools::isSubmit('editSlide')){
 				$this->_handleEditSlide();
-			} elseif (Tools::isSubmit('deleteSlide')) {
+			} elseif (Tools::isSubmit('deleteSlide')){
 				$this->_handleDeleteSlide();
+			} elseif (Tools::isSubmit('updateModule')){
+				$this->upgradeModule();
 			}
 			return $this->_displayForm();
 		}
 	
+	public function upgradeModule()
+		{
+			$module = new MinicSlider();
+			$module->installed = 1;
+            $module->version = '4.2';
+            $module->database_version = '4.1';
+            $module->registered_version = $this->version;
+
+            if (!class_exists($module->name))
+			{
+				if (!file_exists(_PS_MODULE_DIR_.$module->name.'/'.$module->name.'.php'))
+					continue;
+				require_once(_PS_MODULE_DIR_.$module->name.'/'.$module->name.'.php');
+			}
+			if ($object = new $module->name())
+			{
+				$object->initUpgradeModule($module);
+				$object->loadUpgradeVersionList($module->name, $module->version, $module->database_version);
+				$object->runUpgradeModule();
+
+				if ((count($errors_module_list = $object->getErrors())))
+					$module_errors[] = array('name' => $module->name, 'message' => $errors_module_list);
+				else if ((count($conf_module_list = $object->getConfirmations())))
+					$module_success[] = array('name' => $module->name, 'message' => $conf_module_list);
+				unset($object);
+			}
+		}
+
 	private function _displayForm()
 		{	
 			$defaultLanguage = Language::getLanguage(Configuration::get('PS_LANG_DEFAULT'));
