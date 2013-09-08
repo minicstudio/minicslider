@@ -160,34 +160,6 @@ class MinicSlider extends Module
 			}
 			return $this->_displayForm();
 		}
-	
-	public function upgradeModule()
-		{
-			$module = new MinicSlider();
-			$module->installed = 1;
-            $module->version = '4.2';
-            $module->database_version = '4.1';
-            $module->registered_version = $this->version;
-
-            if (!class_exists($module->name))
-			{
-				if (!file_exists(_PS_MODULE_DIR_.$module->name.'/'.$module->name.'.php'))
-					continue;
-				require_once(_PS_MODULE_DIR_.$module->name.'/'.$module->name.'.php');
-			}
-			if ($object = new $module->name())
-			{
-				$object->initUpgradeModule($module);
-				$object->loadUpgradeVersionList($module->name, $module->version, $module->database_version);
-				$object->runUpgradeModule();
-
-				if ((count($errors_module_list = $object->getErrors())))
-					$module_errors[] = array('name' => $module->name, 'message' => $errors_module_list);
-				else if ((count($conf_module_list = $object->getConfirmations())))
-					$module_success[] = array('name' => $module->name, 'message' => $conf_module_list);
-				unset($object);
-			}
-		}
 
 	private function _displayForm()
 		{	
@@ -274,6 +246,40 @@ class MinicSlider extends Module
 				Configuration::updateValue('PS_MINIC_SLIDER_FIRST', '0');
 
 			return $this->display(__FILE__, 'views/templates/admin/admin.tpl');
+		}
+
+
+	public function upgradeModule()
+		{
+			/**
+			* TODO: kell/kellenek az uj verziok (gondolom a lehujabbat kell meagdni es akkor addig updateli)
+			* TODO: a fajlokat le kell tolteni (talan az osszes verzio fajljat le lehetne tolteni, ugyis csak azt hasznalja ameiket kell)
+			*/
+			$module = new MinicSlider();
+			$module->installed = 1;
+            $module->version = '4.2'; // Amire updatelni kell (ha tobb verzioval el van maradva akkor wtf van?)
+            $module->database_version = $this->version;
+            $module->registered_version = $this->version;
+
+            if (!class_exists($module->name))
+			{
+				if (!file_exists(_PS_MODULE_DIR_.$module->name.'/'.$module->name.'.php'))
+					continue;
+				require_once(_PS_MODULE_DIR_.$module->name.'/'.$module->name.'.php');
+			}
+			if ($object = new $module->name())
+			{
+				$object->initUpgradeModule($module);
+				$object->loadUpgradeVersionList($module->name, $module->version, $module->database_version);
+				$object->runUpgradeModule();
+
+				// Ez azt hiszem feleslegsen van itt, illetve kell egy sajat visszajelzes
+				if ((count($errors_module_list = $object->getErrors())))
+					$module_errors[] = array('name' => $module->name, 'message' => $errors_module_list);
+				else if ((count($conf_module_list = $object->getConfirmations())))
+					$module_success[] = array('name' => $module->name, 'message' => $conf_module_list);
+				unset($object);
+			}
 		}
 
 	private function _handleOptions()
