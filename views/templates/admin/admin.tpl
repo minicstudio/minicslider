@@ -2,6 +2,7 @@
     $(document).ready(function() {
 
         // Sortable
+
         $("ul.languages").sortable({
             opacity: 0.6,
             cursor: 'move',
@@ -10,12 +11,15 @@
                 var list = $(this);
                 var number;
                 var response;
-                $.getJSON(
-                    "{$slider.sortUrl}", 
-                    {ldelim}slides: $(this).sortable("serialize"){rdelim}, 
-                    function(response){
+                $.ajax({
+                    type: 'GET',
+                    url: '{$slider.sortUrl}',
+                    cache: false,
+                    dataType : "json",
+                    data: $(this).sortable("serialize"),
+                    success: function(response){
                         if(response.success == "true"){
-                            showResponse($("#sortable"), "{l s='Saved successfull' mod='minicslider'}", 'conf');
+                            minic.showResponse($("#main-response"), "{l s='Saved successfull' mod='minicslider'}", 'conf');
                             var i = 1;
                             list.children("li").each(function(){
                                 number = i;
@@ -26,10 +30,14 @@
                                 i++;
                             });
                         }else{
-                            showResponse($("#sortable"), "{l s='Something went wrong, please refresh the page and try again' mod='minicslider'}", 'error'); 
+                            minic.showResponse($("#main-response"), "{l s='Something went wrong, please refresh the page and try again' mod='minicslider'}", 'error'); 
                         }
-                  }
-                );
+                    },
+                    error: function(XMLHttpRequest) {
+                        minic.showResponse($("#main-response"), "{l s='Something went wrong, please refresh the page and try again' mod='minicslider'}", 'error'); 
+                        console.log(XMLHttpRequest);
+                    }
+                });
             }
         });         
     });
