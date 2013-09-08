@@ -28,7 +28,7 @@ class MinicSlider extends Module
 	    {
 		    $this->name = 'minicslider';
 		    $this->tab = 'advertising_marketing';
-		    $this->version = '4.1';
+		    $this->version = '4.1.5';
 		    $this->author = 'minic studio';
 		    $this->need_instance = 1;
 			$this->secure_key = Tools::encrypt($this->name);
@@ -418,8 +418,8 @@ class MinicSlider extends Module
 	
 	private function _resizer($image, $newName = NULL)
 		{
-			$path = $_SERVER['DOCUMENT_ROOT'].$this->_path.'/uploads/';
-			$pathThumb = $_SERVER['DOCUMENT_ROOT'].$this->_path.'/uploads/thumbs/';
+			$path = $this->module_path.'/uploads/';
+			$pathThumb = $this->module_path.'/uploads/thumbs/';
 
 			// Check if thumb dir is exists and create if not
 			if(!file_exists($pathThumb) && !is_dir($pathThumb))
