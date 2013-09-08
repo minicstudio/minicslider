@@ -539,7 +539,9 @@ class MinicSlider extends Module
 			if($options['single'] == 1)
 				$id_lang = $this->context->language->id;
 			$slides = Db::getInstance()->ExecuteS('SELECT * FROM `'._DB_PREFIX_.'minic_slider` WHERE (id_lang ='.$id_lang.' AND id_shop = '.$id_shop.' AND active = 1) ORDER BY id_order ASC');					
-	
+		
+			$first_image_height = getimagesize($this->module_path.'/uploads/'.$slides[0]['image']);
+
 			$this->context->smarty->assign('slides', $slides);		
 			$this->context->smarty->assign('minicSlider', array(
 				'options' => array(
@@ -565,7 +567,8 @@ class MinicSlider extends Module
 					'images' => $this->_path.'uploads/',
 					'thumbs' => $this->_path.'uploads/thumbs/'
 				),
-				'position' => $position
+				'position' => $position,
+				'min_height' => ($first_image_height) ? $first_image_height[1] : 0,
 			));
 	 	
 	 		return $this->display(__FILE__, 'views/templates/front/front.tpl');
