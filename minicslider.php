@@ -59,7 +59,7 @@ class MinicSlider extends Module
 					`id_order` int(10) unsigned NOT NULL,
 					`lang_iso` VARCHAR(5),
 					`title` VARCHAR(100),
-					`url` VARCHAR(100),
+					`url` VARCHAR(255),
 					`target` tinyint(1) unsigned NOT NULL DEFAULT \'0\',
 					`image` VARCHAR(100),
 					`alt` VARCHAR(100),
