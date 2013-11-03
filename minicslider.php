@@ -28,7 +28,7 @@ class MinicSlider extends Module
 	    {
 		    $this->name = 'minicslider';
 		    $this->tab = 'advertising_marketing';
-		    $this->version = '4.1.5';
+		    $this->version = '4.1.11';
 		    $this->author = 'minic studio';
 		    $this->need_instance = 1;
 			$this->secure_key = Tools::encrypt($this->name);
@@ -59,7 +59,7 @@ class MinicSlider extends Module
 					`id_order` int(10) unsigned NOT NULL,
 					`lang_iso` VARCHAR(5),
 					`title` VARCHAR(100),
-					`url` VARCHAR(100),
+					`url` VARCHAR(500),
 					`target` tinyint(1) unsigned NOT NULL DEFAULT \'0\',
 					`image` VARCHAR(100),
 					`alt` VARCHAR(100),
@@ -88,8 +88,9 @@ class MinicSlider extends Module
 					`random` tinyint(1) unsigned NOT NULL DEFAULT \'0\',
 					`start_slide` int(2) unsigned NOT NULL DEFAULT 0,
 					`single` tinyint(1) unsigned NOT NULL DEFAULT \'0\',
-					`width` int(4) unsigned NOT NULL DEFAULT \'0\',
-					`height` int(4) unsigned NOT NULL DEFAULT \'0\',
+					`min_width` varchar(10),
+					`max_width` varchar(10),
+					`max_height` varchar(10),
 					`front` tinyint(1) unsigned NOT NULL DEFAULT \'0\',
 					PRIMARY KEY (`id`, `id_shop`)
 		        ) ENGINE = '._MYSQL_ENGINE_.' DEFAULT CHARSET=UTF8;'))
@@ -153,12 +154,14 @@ class MinicSlider extends Module
 				$this->_handleNewSlide();
 			} elseif (Tools::isSubmit('editSlide')){
 				$this->_handleEditSlide();
-			} elseif (Tools::isSubmit('deleteSlide')) {
+			} elseif (Tools::isSubmit('deleteSlide')){
 				$this->_handleDeleteSlide();
+			} elseif (Tools::isSubmit('updateModule')){
+				$this->upgradeModule();
 			}
 			return $this->_displayForm();
 		}
-	
+
 	private function _displayForm()
 		{	
 			$defaultLanguage = Language::getLanguage(Configuration::get('PS_LANG_DEFAULT'));
@@ -189,8 +192,9 @@ class MinicSlider extends Module
 					'random' => $options['random'],
 					'startSlide' => $options['start_slide'],
 					'single' => $options['single'],
-					'width' => $options['width'],
-					'height' => $options['height'],
+					'min_width' => $options['min_width'],
+					'max_width' => $options['max_width'],
+					'max_height' => $options['max_height'],
 					'front' => $options['front']
 				),
 				'slides' => $slides,
@@ -246,6 +250,40 @@ class MinicSlider extends Module
 			return $this->display(__FILE__, 'views/templates/admin/admin.tpl');
 		}
 
+
+	public function upgradeModule()
+		{
+			/**
+			* TODO: kell/kellenek az uj verziok (gondolom a lehujabbat kell meagdni es akkor addig updateli)
+			* TODO: a fajlokat le kell tolteni (talan az osszes verzio fajljat le lehetne tolteni, ugyis csak azt hasznalja ameiket kell)
+			*/
+			$module = new MinicSlider();
+			$module->installed = 1;
+            $module->version = '4.2'; // Amire updatelni kell (ha tobb verzioval el van maradva akkor wtf van?)
+            $module->database_version = $this->version;
+            $module->registered_version = $this->version;
+
+            if (!class_exists($module->name))
+			{
+				if (!file_exists(_PS_MODULE_DIR_.$module->name.'/'.$module->name.'.php'))
+					continue;
+				require_once(_PS_MODULE_DIR_.$module->name.'/'.$module->name.'.php');
+			}
+			if ($object = new $module->name())
+			{
+				$object->initUpgradeModule($module);
+				$object->loadUpgradeVersionList($module->name, $module->version, $module->database_version);
+				$object->runUpgradeModule();
+
+				// Ez azt hiszem feleslegsen van itt, illetve kell egy sajat visszajelzes
+				if ((count($errors_module_list = $object->getErrors())))
+					$module_errors[] = array('name' => $module->name, 'message' => $errors_module_list);
+				else if ((count($conf_module_list = $object->getConfirmations())))
+					$module_success[] = array('name' => $module->name, 'message' => $conf_module_list);
+				unset($object);
+			}
+		}
+
 	private function _handleOptions()
 		{		
 			$id_shop = (int)$this->context->shop->id;
@@ -271,8 +309,9 @@ class MinicSlider extends Module
 					random = "'.(int)Tools::getValue('random').'",
 					start_slide = "'.(int)Tools::getValue('startSlide').'",
 					single = "'.(int)Tools::getValue('single').'",
-					width = "'.(int)Tools::getValue('width').'",
-					height = "'.(int)Tools::getValue('height').'",
+					min_width = "'.Tools::getValue('min_width').'",
+					max_width = "'.Tools::getValue('max_width').'",
+					max_height = "'.Tools::getValue('max_height').'",
 					front = "'.(int)Tools::getValue('front').'" 
 				WHERE id = 1
 					')){
@@ -388,8 +427,8 @@ class MinicSlider extends Module
 	
 	private function _resizer($image, $newName = NULL)
 		{
-			$path = $_SERVER['DOCUMENT_ROOT'].$this->_path.'/uploads/';
-			$pathThumb = $_SERVER['DOCUMENT_ROOT'].$this->_path.'/uploads/thumbs/';
+			$path = $this->module_path.'/uploads/';
+			$pathThumb = $this->module_path.'/uploads/thumbs/';
 
 			// Check if thumb dir is exists and create if not
 			if(!file_exists($pathThumb) && !is_dir($pathThumb))
@@ -509,7 +548,9 @@ class MinicSlider extends Module
 			if($options['single'] == 1)
 				$id_lang = $this->context->language->id;
 			$slides = Db::getInstance()->ExecuteS('SELECT * FROM `'._DB_PREFIX_.'minic_slider` WHERE (id_lang ='.$id_lang.' AND id_shop = '.$id_shop.' AND active = 1) ORDER BY id_order ASC');					
-	
+			
+			$first_image_height = ($slides) ? getimagesize($this->module_path.'/uploads/'.$slides[0]['image']) : 0;
+
 			$this->context->smarty->assign('slides', $slides);		
 			$this->context->smarty->assign('minicSlider', array(
 				'options' => array(
@@ -527,15 +568,17 @@ class MinicSlider extends Module
 					'random' => $options['random'],
 					'startSlide' => $options['start_slide'],
 					'single' => $options['single'],
-					'width' => $options['width'],
-					'height' => $options['height'],
+					'min_width' => $options['min_width'],
+					'max_width' => $options['max_width'],
+					'max_height' => $options['max_height'],
 					'front' => $options['front']
 				),
 				'path' => array(
 					'images' => $this->_path.'uploads/',
 					'thumbs' => $this->_path.'uploads/thumbs/'
 				),
-				'position' => $position
+				'position' => $position,
+				'min_height' => ($first_image_height) ? $first_image_height[1] : 0,
 			));
 	 	
 	 		return $this->display(__FILE__, 'views/templates/front/front.tpl');
