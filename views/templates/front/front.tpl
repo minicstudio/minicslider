@@ -7,7 +7,7 @@
             </div>
         {/if}
         <div id="minic_slider" class="theme-default{if $minicSlider.options.thumbnail == 1 and $minicSlider.options.control != 0} controlnav-thumbs{/if}">   
-            <div id="slider" class="nivoSlider" style="{if $minicSlider.options.width}width:{$minicSlider.options.width}px;{/if}{if $minicSlider.options.height}height:{$minicSlider.options.height}px;{else}min-height:{$minicSlider.min_height}px;{/if}{if $minicSlider.options.control != 1}margin-bottom:0;{/if}{if $minicSlider.position == 'top'}display:inline-block;{/if}">
+            <div id="slider" class="nivoSlider" style="{if $minicSlider.options.min_width}min-width:{$minicSlider.options.min_width};{/if}{if $minicSlider.options.max_width}max-width:{$minicSlider.options.max_width};{/if}{if $minicSlider.options.max_height}max-height:{$minicSlider.options.max_height};{else}min-height:{$minicSlider.min_height}px;{/if}{if $minicSlider.options.control != 1}margin-bottom:0;{/if}">
                 {foreach from=$slides item=image name=singleimage}
                     {if $image.url != ''}<a href="{$image.url}" {if $image.target == 1}target="_blank"{/if}>{/if}
                         <img src="{$minicSlider.path.images}{$image.image}" class="slider_image" 
@@ -28,7 +28,7 @@
         </div> 
           
         {if $minicSlider.position == 'top'}
-        <div style="display:none;">
+        <div>
             <div>
         {/if}   
 
@@ -49,7 +49,12 @@
                 manualAdvance: {if $minicSlider.options.manual == 1}true{else}false{/if}, 
                 prevText: '{l s='Prev' mod='minicslider'}', 
                 nextText: '{l s='Next' mod='minicslider'}', 
-                randomStart: {if $minicSlider.options.random == 1}true{else}false{/if}
+                randomStart: {if $minicSlider.options.random == 1}true{else}false{/if},
+                {literal}
+                afterLoad: function(){
+                    $('#slider').css({'min-height' : '1px'});
+                }
+                {/literal}
             });
         });
         </script>   

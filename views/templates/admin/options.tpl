@@ -59,12 +59,16 @@
             </div>
             <h3>{l s='Width and Height configuration' mod='minicslider'}</h3>
             <div class="input-holder">
-                <label>{l s='Slider width' mod='minicslider'}: </label>
-                <input type="text" name="width" value="{$slider.options.width}" class="tooltip" title="{l s='If you want to fix the width of the slider than fill this out.' mod='minicslider'}">
+                <label>{l s='Slider min width' mod='minicslider'}: </label>
+                <input type="text" name="min_width" value="{$slider.options.min_width}" class="tooltip" title="{l s='Minimum width of the slider. For example: 500px or 20%' mod='minicslider'}">
             </div>
             <div class="input-holder">
-                <label>{l s='Slider height' mod='minicslider'}: </label>
-                <input type="text" name="height" value="{$slider.options.height}" class="tooltip" title="{l s='If you want to fix the height of the slider than fill this out.' mod='minicslider'}">
+                <label>{l s='Slider max width' mod='minicslider'}: </label>
+                <input type="text" name="max_width" value="{$slider.options.max_width}" class="tooltip" title="{l s='Maximum width of the slider. For example: 1800px or 80%' mod='minicslider'}">
+            </div>
+            <div class="input-holder">
+                <label>{l s='Slider max height' mod='minicslider'}: </label>
+                <input type="text" name="max_height" value="{$slider.options.max_height}" class="tooltip" title="{l s='Maximum height of the slider. For example: 500px or 50%' mod='minicslider'}">
             </div>
             <div class="right">
                 <h3>{l s='Other options' mod='minicslider'}</h3>

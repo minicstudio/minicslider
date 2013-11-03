@@ -88,8 +88,9 @@ class MinicSlider extends Module
 					`random` tinyint(1) unsigned NOT NULL DEFAULT \'0\',
 					`start_slide` int(2) unsigned NOT NULL DEFAULT 0,
 					`single` tinyint(1) unsigned NOT NULL DEFAULT \'0\',
-					`width` int(4) unsigned NOT NULL DEFAULT \'0\',
-					`height` int(4) unsigned NOT NULL DEFAULT \'0\',
+					`min_width` varchar(10),
+					`max_width` varchar(10),
+					`max_height` varchar(10),
 					`front` tinyint(1) unsigned NOT NULL DEFAULT \'0\',
 					PRIMARY KEY (`id`, `id_shop`)
 		        ) ENGINE = '._MYSQL_ENGINE_.' DEFAULT CHARSET=UTF8;'))
@@ -191,8 +192,9 @@ class MinicSlider extends Module
 					'random' => $options['random'],
 					'startSlide' => $options['start_slide'],
 					'single' => $options['single'],
-					'width' => $options['width'],
-					'height' => $options['height'],
+					'min_width' => $options['min_width'],
+					'max_width' => $options['max_width'],
+					'max_height' => $options['max_height'],
 					'front' => $options['front']
 				),
 				'slides' => $slides,
@@ -307,8 +309,9 @@ class MinicSlider extends Module
 					random = "'.(int)Tools::getValue('random').'",
 					start_slide = "'.(int)Tools::getValue('startSlide').'",
 					single = "'.(int)Tools::getValue('single').'",
-					width = "'.(int)Tools::getValue('width').'",
-					height = "'.(int)Tools::getValue('height').'",
+					min_width = "'.Tools::getValue('min_width').'",
+					max_width = "'.Tools::getValue('max_width').'",
+					max_height = "'.Tools::getValue('max_height').'",
 					front = "'.(int)Tools::getValue('front').'" 
 				WHERE id = 1
 					')){
@@ -565,8 +568,9 @@ class MinicSlider extends Module
 					'random' => $options['random'],
 					'startSlide' => $options['start_slide'],
 					'single' => $options['single'],
-					'width' => $options['width'],
-					'height' => $options['height'],
+					'min_width' => $options['min_width'],
+					'max_width' => $options['max_width'],
+					'max_height' => $options['max_height'],
 					'front' => $options['front']
 				),
 				'path' => array(
