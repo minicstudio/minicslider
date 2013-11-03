@@ -23,7 +23,7 @@
             </div>
             <div class="imageName input-holder">
                 <label>{l s='Image name' mod='minicslider'}</label>
-                <input type="text" name="imageName" class="tooltip" placeholder="{l s='Image name'}" title="{l s='Optional! The name of the uploaded image without extension. The white spaces will be replaces with underscore ( _ )' mod='minicslider'}" />           
+                <input type="text" name="imageName" class="tooltip" placeholder="{l s='Image name'}" title="{l s='Optional! The name of the uploaded image without extension. White spaces will be replaced with underscore ( _ )' mod='minicslider'}" />           
             </div>
             {if $slider.options.single == 1}
             <div class="input-holder language">
