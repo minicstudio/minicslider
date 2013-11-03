@@ -32,7 +32,7 @@ If you want to use in the TOP POSITION than the module has to be the last in tha
 - Opera v10+
 
 ###Demo
-For now I can provide frontend demo only on the [Nivo slider](http://dev7studios.com/nivo-slider/) home page or [here](http://module.minic.ro).
+For now I can provide frontend demo only on the [Nivo slider](http://dev7studios.com/nivo-slider/) home page or [here](http://module.minic.ro/modules/).
 
 ###Installation
 Upload/move the minicslider directory (dont forget to remove the -master from the name of the directory) into your modules folder and install the module from the back office as usual.
