@@ -100,6 +100,10 @@
 }
 #slides-list .slides-holder ul{
     float: left;
+    list-style: none outside none;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
 }
     #slides-list .slide{
         margin-bottom: 2px;
